@@ -39,6 +39,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.0.1\lib\net40\NLog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -60,6 +64,10 @@
     <ProjectReference Include="..\CommonModel\CommonModel.csproj">
       <Project>{e576f348-bf0c-41c9-9a0e-43652f978337}</Project>
       <Name>CommonModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JCModel\JCModel.csproj">
+      <Project>{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}</Project>
+      <Name>JCModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

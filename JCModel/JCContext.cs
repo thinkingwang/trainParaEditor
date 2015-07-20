@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -15,25 +16,29 @@ namespace JCModel
             Configuration.ProxyCreationEnabled = false;
         }
 
-        public virtual DbSet<CarList> CarLists { get; set; }
+        public virtual DbSet<JCCarList> CarLists { get; set; }
         public virtual DbSet<CRH_wheel> CRH_wheel { get; set; }
         public virtual DbSet<Detect> Detects { get; set; }
         public virtual DbSet<ProcData> ProcDatas { get; set; }
         public virtual DbSet<ProfileAdjust> ProfileAdjusts { get; set; }
         public virtual DbSet<ProfileDetectResult> ProfileDetectResults { get; set; }
         public virtual DbSet<ProfileDetectResult_real> ProfileDetectResult_real { get; set; }
-        public virtual DbSet<Sequ> Sequs { get; set; }
+        public virtual DbSet<JCSequ> Sequs { get; set; }
         public virtual DbSet<threshold> thresholds { get; set; }
         public virtual DbSet<TrainType> TrainTypes { get; set; }
         public virtual DbSet<WhmsTime> WhmsTimes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CarList>()
+            modelBuilder.Ignore<CarList>();
+
+            modelBuilder.Ignore<Sequ>();
+
+            modelBuilder.Entity<JCCarList>()
                 .Property(e => e.carNo)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<CarList>()
+            modelBuilder.Entity<JCCarList>()
                 .Property(e => e.carNo2)
                 .IsUnicode(false);
 
@@ -297,6 +302,38 @@ namespace JCModel
             modelBuilder.Entity<TrainType>()
                 .Property(e => e.format)
                 .IsUnicode(false);
+        }
+
+        public override IEnumerable<CarList> GetCarLists(DateTime time)
+        {
+            var datas = from a in CarLists where a.testDateTime.Equals(time) select a;
+            return datas.ToList();
+        }
+
+        public override void DeleteCarList(DateTime time, int index)
+        {
+            var datas = from a in CarLists where a.testDateTime.Equals(time) select a;
+            CarLists.Remove(
+                            (from v in CarLists where v.testDateTime.Equals(time) select v)
+                                .ToList().ElementAt(index));
+        }
+
+        public override void InsertCarList(DateTime time)
+        {
+            var carNew = new JCCarList()
+            {
+                testDateTime = time,
+                posNo = 0,
+                carNo = "",
+                carNo2 = "",
+                direction = false
+            };
+            var cars = (from v in CarLists where v.testDateTime.Equals(time) orderby v.posNo select v).ToList();
+            if (cars.Any())
+            {
+                carNew.posNo = Convert.ToByte(cars.ElementAt(cars.Count() - 1).posNo + 1);
+            }
+            CarLists.Add(carNew);
         }
     }
 }

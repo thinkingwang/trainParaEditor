@@ -21,3 +21,14 @@ E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\EntityFra
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\EntityFramework.SqlServer.xml
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\NLog.dll
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\NLog.xml
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\CommonModel.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\DCModel.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\JCModel.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Service.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\CommonModel.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\DCModel.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\JCModel.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\动车数据综合配置器.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Service.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\zh-Hans\EntityFramework.resources.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll

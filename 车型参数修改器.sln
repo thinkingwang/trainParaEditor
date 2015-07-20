@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCModel", "DCModel\DCModel.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCModel", "JCModel\JCModel.csproj", "{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{64134D7C-7E60-4F4F-8B04-EED4B120D800}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,16 @@ Global
 		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Release|x86.ActiveCfg = Release|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{64134D7C-7E60-4F4F-8B04-EED4B120D800}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

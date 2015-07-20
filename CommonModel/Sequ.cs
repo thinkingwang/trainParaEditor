@@ -31,9 +31,4 @@ namespace CommonModel
 
         public virtual Detect Detect { get; set; }
     }
-    [Table("CarList")]
-    public partial class JCCarList : CarList
-    {
-        public bool direction { get; set; }
-    }
 }

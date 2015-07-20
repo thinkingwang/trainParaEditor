@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using CommonModel;
+using JCModel;
 
 namespace DCModel
 {
@@ -29,6 +31,10 @@ namespace DCModel
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<JCCarList>();
+
+            modelBuilder.Ignore<JCSequ>();
+
             modelBuilder.Entity<CarList>()
                 .Property(e => e.carNo)
                 .IsUnicode(false);
@@ -299,5 +305,37 @@ namespace DCModel
                 .IsUnicode(false);
         }
 
+
+        public override IEnumerable<CarList> GetCarLists(DateTime time)
+        {
+            var datas = from a in CarLists where a.testDateTime.Equals(time) select a;
+            return datas.ToList();
+        }
+
+
+        public override void DeleteCarList(DateTime time, int index)
+        {
+            var datas = from a in CarLists where a.testDateTime.Equals(time) select a;
+            CarLists.Remove(
+                            (from v in CarLists where v.testDateTime.Equals(time) select v)
+                                .ToList().ElementAt(index));
+        }
+
+        public override void InsertCarList(DateTime time)
+        {
+            var carNew = new CarList()
+            {
+                testDateTime = time,
+                posNo = 0,
+                carNo = "",
+                carNo2 = ""
+            };
+            var cars = (from v in CarLists where v.testDateTime.Equals(time) orderby v.posNo select v).ToList();
+            if (cars.Any())
+            {
+                carNew.posNo = Convert.ToByte(cars.ElementAt(cars.Count() - 1).posNo + 1);
+            }
+            CarLists.Add(carNew);
+        }
     }
 }

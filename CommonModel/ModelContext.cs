@@ -15,7 +15,9 @@ namespace CommonModel
 
         }
 
-
+        public abstract IEnumerable<CarList> GetCarLists(DateTime time);
+        public abstract void DeleteCarList(DateTime time,int index);
+        public abstract void InsertCarList(DateTime time);
         public virtual int Profile(DateTime testTime)
         {
             var paras = new SqlParameter()

@@ -12,3 +12,5 @@ E:\Project\车型参数修改器\JCModel\bin\Debug\EntityFramework.xml
 E:\Project\车型参数修改器\JCModel\bin\Debug\EntityFramework.SqlServer.xml
 E:\Project\车型参数修改器\JCModel\bin\Debug\zh-Hans\EntityFramework.resources.dll
 E:\Project\车型参数修改器\JCModel\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
+E:\Project\车型参数修改器\JCModel\bin\Debug\NLog.dll
+E:\Project\车型参数修改器\JCModel\bin\Debug\NLog.xml

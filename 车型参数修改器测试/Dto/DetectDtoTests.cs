@@ -1,7 +1,6 @@
 ﻿using System.Configuration;
 using NUnit.Framework;
 using trainTypeEditor;
-using trainTypeEditor.Dto;
 
 namespace 车型参数修改器测试.Dto
 {
