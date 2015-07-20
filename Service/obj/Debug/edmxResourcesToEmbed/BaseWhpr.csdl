@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BaseWhprP807Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="uphistory2">
+      <Parameter Name="testTime" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

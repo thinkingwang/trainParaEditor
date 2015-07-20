@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BaseWhprP807ModelStoreContainer" CdmEntityContainer="Entities">
+    <FunctionImportMapping FunctionImportName="uphistory2" FunctionName="BaseWhprP807Model.Store.uphistory2" />
+  </EntityContainerMapping>
+</Mapping>
