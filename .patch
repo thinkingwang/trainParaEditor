@@ -1,0 +1,1174 @@
+Index: ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷.sln
+===================================================================
+--- ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷.sln	(revision 6)
++++ ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷.sln	(working copy)
+@@ -1,6 +1,8 @@
+ ï»¿
+-Microsoft Visual Studio Solution File, Format Version 11.00
+-# Visual Studio 2010
++Microsoft Visual Studio Solution File, Format Version 12.00
++# Visual Studio 2013
++VisualStudioVersion = 12.0.31101.0
++MinimumVisualStudioVersion = 10.0.40219.1
+ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·æµ‹è¯•", "è½¦å‹å‚æ•°ä¿®æ”¹å™¨æµ‹è¯•\è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·æµ‹è¯•.csproj", "{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}"
+ EndProject
+ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A844C3B6-A155-49BA-AE4D-4B715A7CF381}"
+@@ -13,9 +15,6 @@
+ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·", "è½¦å‹å‚æ•°ä¿®æ”¹å™¨\è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·.csproj", "{71C15A4B-DA67-4040-8C5F-010BE6A352E8}"
+ EndProject
+ Global
+-	GlobalSection(TestCaseManagementSettings) = postSolution
+-		CategoryFile = è½¦å‹å‚æ•°ä¿®æ”¹å™¨.vsmdi
+-	EndGlobalSection
+ 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+ 		Debug|Any CPU = Debug|Any CPU
+ 		Debug|Mixed Platforms = Debug|Mixed Platforms
+@@ -52,4 +51,7 @@
+ 	GlobalSection(ExtensibilityGlobals) = postSolution
+ 		VisualSVNWorkingCopyRoot = .
+ 	EndGlobalSection
++	GlobalSection(TestCaseManagementSettings) = postSolution
++		CategoryFile = è½¦å‹å‚æ•°ä¿®æ”¹å™¨.vsmdi
++	EndGlobalSection
+ EndGlobal
+Index: ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/App.config
+===================================================================
+--- ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/App.config	(revision 6)
++++ ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/App.config	(working copy)
+@@ -14,5 +14,5 @@
+       <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+     </providers>
+   </entityFramework>
+-  <connectionStrings><add name="tycho_kcEntities" connectionString="metadata=res://*/Data.csdl|res://*/Data.ssdl|res://*/Data.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=192.192.1.15;Initial Catalog=tycho_kc;Persist Security Info=True;User ID=sa;Password=sa123;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient" /><add name="tycho_kcEntities1" connectionString="metadata=res://*/TrainType.csdl|res://*/TrainType.ssdl|res://*/TrainType.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=192.192.1.15;Initial Catalog=tycho_kc;Persist Security Info=True;User ID=sa;Password=sa123;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient" /><add name="thresholdsContext" connectionString="metadata=res://*/thresholdsModel.csdl|res://*/thresholdsModel.ssdl|res://*/thresholdsModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=192.192.1.15;Initial Catalog=tycho_kc;Persist Security Info=True;User ID=sa;Password=sa123;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient" /></connectionStrings>
++  <connectionStrings><add name="tycho_kcEntities" connectionString="metadata=res://*/Data.csdl|res://*/Data.ssdl|res://*/Data.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=192.192.1.15;Initial Catalog=tycho_kc;Persist Security Info=True;User ID=sa;Password=sa123;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient" /><add name="tycho_kcEntities1" connectionString="metadata=res://*/TrainType.csdl|res://*/TrainType.ssdl|res://*/TrainType.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=192.192.1.15;Initial Catalog=tycho_kc;Persist Security Info=True;User ID=sa;{0};MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient" /><add name="thresholdsContext" connectionString="metadata=res://*/thresholdsModel.csdl|res://*/thresholdsModel.ssdl|res://*/thresholdsModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=192.192.1.15;Initial Catalog=tycho_kc;Persist Security Info=True;User ID=sa;Password=sa123;MultipleActiveResultSets=True&quot;" providerName="System.Data.EntityClient" /></connectionStrings>
+ </configuration>
+\ No newline at end of file
+Index: ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/DetectDtoTests.cs
+===================================================================
+--- ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/DetectDtoTests.cs	(revision 0)
++++ ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/DetectDtoTests.cs	(working copy)
+@@ -0,0 +1,35 @@
++ï»¿using System.Configuration;
++using NUnit.Framework;
++using trainTypeEditor;
++using trainTypeEditor.Dto;
++
++namespace è½¦å‹å‚æ•°ä¿®æ”¹å™¨æµ‹è¯•.Dto
++{
++    [TestFixture()]
++    public class DetectDtoTests
++    {
++        private thresholdsContext _context;
++        [TestFixtureSetUp]
++        public void Init()
++        {
++            _context = new thresholdsContext(string.Format(ConfigurationManager.ConnectionStrings["thresholdsContext"].ConnectionString, "Password=sa123"));
++        }
++        [Test()]
++        public void RepairTest()
++        {
++            Assert.Fail();
++        }
++
++        [Test()]
++        public void EditorTest()
++        {
++            Assert.Fail();
++        }
++
++        [Test()]
++        public void GetEngNumTest()
++        {
++            Assert.Fail();
++        }
++    }
++}
+Index: ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/TrainTypeDtoTests.cs
+===================================================================
+--- ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/TrainTypeDtoTests.cs	(revision 0)
++++ ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/TrainTypeDtoTests.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Configuration;
++using NUnit.Framework;
++using trainTypeEditor;
++
++namespace è½¦å‹å‚æ•°ä¿®æ”¹å™¨æµ‹è¯•.Dto
++{
++    [TestFixture()]
++    public class TrainTypeDtoTests
++    {
++        private thresholdsContext _context;
++        [TestFixtureSetUp]
++        public void Init()
++        {
++            _context = new thresholdsContext(string.Format(ConfigurationManager.ConnectionStrings["thresholdsContext"].ConnectionString, "Password=sa123"));
++        }
++        [Test()]
++        public void DeleteTest()
++        {
++            Assert.Fail();
++        }
++
++        [Test()]
++        public void NewTrainTypeTest()
++        {
++            Assert.Fail();
++        }
++
++        [Test()]
++        public void DeleteTest1()
++        {
++            Assert.Fail();
++        }
++    }
++}
++
++
+Index: ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/DetectDtoTests.cs
+===================================================================
+--- ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/DetectDtoTests.cs	(revision 0)
++++ ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/DetectDtoTests.cs	(working copy)
+@@ -0,0 +1,35 @@
++ï»¿using System.Configuration;
++using NUnit.Framework;
++using trainTypeEditor;
++using trainTypeEditor.Dto;
++
++namespace è½¦å‹å‚æ•°ä¿®æ”¹å™¨æµ‹è¯•.Dto
++{
++    [TestFixture()]
++    public class DetectDtoTests
++    {
++        private thresholdsContext _context;
++        [TestFixtureSetUp]
++        public void Init()
++        {
++            _context = new thresholdsContext(string.Format(ConfigurationManager.ConnectionStrings["thresholdsContext"].ConnectionString, "Password=sa123"));
++        }
++        [Test()]
++        public void RepairTest()
++        {
++            Assert.Fail();
++        }
++
++        [Test()]
++        public void EditorTest()
++        {
++            Assert.Fail();
++        }
++
++        [Test()]
++        public void GetEngNumTest()
++        {
++            Assert.Fail();
++        }
++    }
++}
+Index: ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/TrainTypeDtoTests.cs
+===================================================================
+--- ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/TrainTypeDtoTests.cs	(revision 0)
++++ ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/Dto/TrainTypeDtoTests.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Configuration;
++using NUnit.Framework;
++using trainTypeEditor;
++
++namespace è½¦å‹å‚æ•°ä¿®æ”¹å™¨æµ‹è¯•.Dto
++{
++    [TestFixture()]
++    public class TrainTypeDtoTests
++    {
++        private thresholdsContext _context;
++        [TestFixtureSetUp]
++        public void Init()
++        {
++            _context = new thresholdsContext(string.Format(ConfigurationManager.ConnectionStrings["thresholdsContext"].ConnectionString, "Password=sa123"));
++        }
++        [Test()]
++        public void DeleteTest()
++        {
++            Assert.Fail();
++        }
++
++        [Test()]
++        public void NewTrainTypeTest()
++        {
++            Assert.Fail();
++        }
++
++        [Test()]
++        public void DeleteTest1()
++        {
++            Assert.Fail();
++        }
++    }
++}
++
++
+Index: ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ß²âÊÔ.csproj
+===================================================================
+--- ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ß²âÊÔ.csproj	(revision 7)
++++ ³µĞÍ²ÎÊıĞŞ¸ÄÆ÷²âÊÔ/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ß²âÊÔ.csproj	(working copy)
+@@ -62,6 +62,8 @@
+     </CodeAnalysisDependentAssemblyPaths>
+   </ItemGroup>
+   <ItemGroup>
++    <Compile Include="Dto\DetectDtoTests.cs" />
++    <Compile Include="Dto\TrainTypeDtoTests.cs" />
+     <Compile Include="Properties\AssemblyInfo.cs" />
+     <Compile Include="DataDaoTest.cs" />
+   </ItemGroup>
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/Properties/AssemblyInfo.cs
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/Properties/AssemblyInfo.cs	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/Properties/AssemblyInfo.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++// æœ‰å…³ç¨‹åºé›†çš„å¸¸è§„ä¿¡æ¯é€šè¿‡ä»¥ä¸‹ç‰¹æ€§é›† 
++// æ§åˆ¶ã€‚æ›´æ”¹è¿™äº›ç‰¹æ€§å€¼å¯ä¿®æ”¹
++// ä¸ç¨‹åºé›†å…³è”çš„ä¿¡æ¯ã€‚
++[assembly: AssemblyTitle("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests")]
++[assembly: AssemblyCopyright("Copyright Â©  2015")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// å°† ComVisible è®¾ç½®ä¸º false ä¼šä½¿æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ 
++// å¯¹ COM ç»„ä»¶ä¸å¯è§ã€‚  å¦‚æœéœ€è¦ä» COM è®¿é—®æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ï¼Œ
++// è¯·å°†è¯¥ç±»å‹ä¸Šçš„ ComVisible ç‰¹æ€§è®¾ç½®ä¸º trueã€‚
++[assembly: ComVisible(false)]
++
++// å¦‚æœæ­¤é¡¹ç›®å‘ COM å…¬å¼€ï¼Œåˆ™ä¸‹åˆ— GUID ç”¨äºç±»å‹åº“çš„ ID
++[assembly: Guid("e9620cf8-14f6-4d7b-ab9f-d99848b94ea2")]
++
++// ç¨‹åºé›†çš„ç‰ˆæœ¬ä¿¡æ¯ç”±ä»¥ä¸‹å››ä¸ªå€¼ç»„æˆ: 
++//
++//      ä¸»ç‰ˆæœ¬
++//      æ¬¡ç‰ˆæœ¬
++//      ç”Ÿæˆå·
++//      ä¿®è®¢å·
++//
++// å¯ä»¥æŒ‡å®šæ‰€æœ‰è¿™äº›å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨â€œç”Ÿæˆå·â€å’Œâ€œä¿®è®¢å·â€çš„é»˜è®¤å€¼ï¼Œ
++// æ–¹æ³•æ˜¯æŒ‰å¦‚ä¸‹æ‰€ç¤ºä½¿ç”¨â€œ*â€: 
++// [assembly:  AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests.csproj
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests.csproj	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests.csproj	(working copy)
+@@ -0,0 +1,82 @@
++ï»¿<?xml version="1.0" encoding="utf-8"?>
++<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++  <PropertyGroup>
++    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
++    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
++    <ProjectGuid>{DCAD4656-69C1-4F16-B15E-8B940BBF3719}</ProjectGuid>
++    <OutputType>Library</OutputType>
++    <AppDesignerFolder>Properties</AppDesignerFolder>
++    <RootNamespace>è½¦è½®æ“¦ä¼¤_å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests</RootNamespace>
++    <AssemblyName>è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests</AssemblyName>
++    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
++    <FileAlignment>512</FileAlignment>
++    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
++    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
++    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
++    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
++    <IsCodedUITest>False</IsCodedUITest>
++    <TestProjectType>UnitTest</TestProjectType>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
++    <DebugSymbols>true</DebugSymbols>
++    <DebugType>full</DebugType>
++    <Optimize>false</Optimize>
++    <OutputPath>bin\Debug\</OutputPath>
++    <DefineConstants>DEBUG;TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
++    <DebugType>pdbonly</DebugType>
++    <Optimize>true</Optimize>
++    <OutputPath>bin\Release\</OutputPath>
++    <DefineConstants>TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <ItemGroup>
++    <Reference Include="System" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
++      </ItemGroup>
++    </When>
++    <Otherwise>
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
++      </ItemGroup>
++    </Otherwise>
++  </Choose>
++  <ItemGroup>
++    <Compile Include="Properties\AssemblyInfo.cs" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++      </ItemGroup>
++    </When>
++  </Choose>
++  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
++  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
++  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
++       Other similar extension points exist, see Microsoft.Common.targets.
++  <Target Name="BeforeBuild">
++  </Target>
++  <Target Name="AfterBuild">
++  </Target>
++  -->
++</Project>
+\ No newline at end of file
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests	(working copy)
+
+Property changes on: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests
+___________________________________________________________________
+Added: svn:ignore
+## -0,0 +1,10 ##
++[Bb]in
++obj
++[Dd]ebug
++[Rr]elease
++*.user
++*.aps
++*.eto
++ClientBin
++GeneratedArtifacts
++_Pvt_Extensions
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/Properties/AssemblyInfo.cs
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/Properties/AssemblyInfo.cs	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/Properties/AssemblyInfo.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++// æœ‰å…³ç¨‹åºé›†çš„å¸¸è§„ä¿¡æ¯é€šè¿‡ä»¥ä¸‹ç‰¹æ€§é›† 
++// æ§åˆ¶ã€‚æ›´æ”¹è¿™äº›ç‰¹æ€§å€¼å¯ä¿®æ”¹
++// ä¸ç¨‹åºé›†å…³è”çš„ä¿¡æ¯ã€‚
++[assembly: AssemblyTitle("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1")]
++[assembly: AssemblyCopyright("Copyright Â©  2015")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// å°† ComVisible è®¾ç½®ä¸º false ä¼šä½¿æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ 
++// å¯¹ COM ç»„ä»¶ä¸å¯è§ã€‚  å¦‚æœéœ€è¦ä» COM è®¿é—®æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ï¼Œ
++// è¯·å°†è¯¥ç±»å‹ä¸Šçš„ ComVisible ç‰¹æ€§è®¾ç½®ä¸º trueã€‚
++[assembly: ComVisible(false)]
++
++// å¦‚æœæ­¤é¡¹ç›®å‘ COM å…¬å¼€ï¼Œåˆ™ä¸‹åˆ— GUID ç”¨äºç±»å‹åº“çš„ ID
++[assembly: Guid("74593a21-dcf3-4216-b6cd-ddc2665bcef5")]
++
++// ç¨‹åºé›†çš„ç‰ˆæœ¬ä¿¡æ¯ç”±ä»¥ä¸‹å››ä¸ªå€¼ç»„æˆ: 
++//
++//      ä¸»ç‰ˆæœ¬
++//      æ¬¡ç‰ˆæœ¬
++//      ç”Ÿæˆå·
++//      ä¿®è®¢å·
++//
++// å¯ä»¥æŒ‡å®šæ‰€æœ‰è¿™äº›å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨â€œç”Ÿæˆå·â€å’Œâ€œä¿®è®¢å·â€çš„é»˜è®¤å€¼ï¼Œ
++// æ–¹æ³•æ˜¯æŒ‰å¦‚ä¸‹æ‰€ç¤ºä½¿ç”¨â€œ*â€: 
++// [assembly:  AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1.csproj
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1.csproj	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1.csproj	(working copy)
+@@ -0,0 +1,82 @@
++ï»¿<?xml version="1.0" encoding="utf-8"?>
++<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++  <PropertyGroup>
++    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
++    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
++    <ProjectGuid>{A15A1276-49F5-428E-8FCD-F836548EEAF0}</ProjectGuid>
++    <OutputType>Library</OutputType>
++    <AppDesignerFolder>Properties</AppDesignerFolder>
++    <RootNamespace>è½¦è½®æ“¦ä¼¤_å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1</RootNamespace>
++    <AssemblyName>è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1</AssemblyName>
++    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
++    <FileAlignment>512</FileAlignment>
++    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
++    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
++    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
++    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
++    <IsCodedUITest>False</IsCodedUITest>
++    <TestProjectType>UnitTest</TestProjectType>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
++    <DebugSymbols>true</DebugSymbols>
++    <DebugType>full</DebugType>
++    <Optimize>false</Optimize>
++    <OutputPath>bin\Debug\</OutputPath>
++    <DefineConstants>DEBUG;TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
++    <DebugType>pdbonly</DebugType>
++    <Optimize>true</Optimize>
++    <OutputPath>bin\Release\</OutputPath>
++    <DefineConstants>TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <ItemGroup>
++    <Reference Include="System" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
++      </ItemGroup>
++    </When>
++    <Otherwise>
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
++      </ItemGroup>
++    </Otherwise>
++  </Choose>
++  <ItemGroup>
++    <Compile Include="Properties\AssemblyInfo.cs" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++      </ItemGroup>
++    </When>
++  </Choose>
++  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
++  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
++  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
++       Other similar extension points exist, see Microsoft.Common.targets.
++  <Target Name="BeforeBuild">
++  </Target>
++  <Target Name="AfterBuild">
++  </Target>
++  -->
++</Project>
+\ No newline at end of file
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1	(working copy)
+
+Property changes on: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1
+___________________________________________________________________
+Added: svn:ignore
+## -0,0 +1,10 ##
++[Bb]in
++obj
++[Dd]ebug
++[Rr]elease
++*.user
++*.aps
++*.eto
++ClientBin
++GeneratedArtifacts
++_Pvt_Extensions
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/Properties/AssemblyInfo.cs
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/Properties/AssemblyInfo.cs	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/Properties/AssemblyInfo.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++// æœ‰å…³ç¨‹åºé›†çš„å¸¸è§„ä¿¡æ¯é€šè¿‡ä»¥ä¸‹ç‰¹æ€§é›† 
++// æ§åˆ¶ã€‚æ›´æ”¹è¿™äº›ç‰¹æ€§å€¼å¯ä¿®æ”¹
++// ä¸ç¨‹åºé›†å…³è”çš„ä¿¡æ¯ã€‚
++[assembly: AssemblyTitle("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1")]
++[assembly: AssemblyCopyright("Copyright Â©  2015")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// å°† ComVisible è®¾ç½®ä¸º false ä¼šä½¿æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ 
++// å¯¹ COM ç»„ä»¶ä¸å¯è§ã€‚  å¦‚æœéœ€è¦ä» COM è®¿é—®æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ï¼Œ
++// è¯·å°†è¯¥ç±»å‹ä¸Šçš„ ComVisible ç‰¹æ€§è®¾ç½®ä¸º trueã€‚
++[assembly: ComVisible(false)]
++
++// å¦‚æœæ­¤é¡¹ç›®å‘ COM å…¬å¼€ï¼Œåˆ™ä¸‹åˆ— GUID ç”¨äºç±»å‹åº“çš„ ID
++[assembly: Guid("74593a21-dcf3-4216-b6cd-ddc2665bcef5")]
++
++// ç¨‹åºé›†çš„ç‰ˆæœ¬ä¿¡æ¯ç”±ä»¥ä¸‹å››ä¸ªå€¼ç»„æˆ: 
++//
++//      ä¸»ç‰ˆæœ¬
++//      æ¬¡ç‰ˆæœ¬
++//      ç”Ÿæˆå·
++//      ä¿®è®¢å·
++//
++// å¯ä»¥æŒ‡å®šæ‰€æœ‰è¿™äº›å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨â€œç”Ÿæˆå·â€å’Œâ€œä¿®è®¢å·â€çš„é»˜è®¤å€¼ï¼Œ
++// æ–¹æ³•æ˜¯æŒ‰å¦‚ä¸‹æ‰€ç¤ºä½¿ç”¨â€œ*â€: 
++// [assembly:  AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/Properties/AssemblyInfo.cs
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/Properties/AssemblyInfo.cs	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/Properties/AssemblyInfo.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++// æœ‰å…³ç¨‹åºé›†çš„å¸¸è§„ä¿¡æ¯é€šè¿‡ä»¥ä¸‹ç‰¹æ€§é›† 
++// æ§åˆ¶ã€‚æ›´æ”¹è¿™äº›ç‰¹æ€§å€¼å¯ä¿®æ”¹
++// ä¸ç¨‹åºé›†å…³è”çš„ä¿¡æ¯ã€‚
++[assembly: AssemblyTitle("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1")]
++[assembly: AssemblyCopyright("Copyright Â©  2015")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// å°† ComVisible è®¾ç½®ä¸º false ä¼šä½¿æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ 
++// å¯¹ COM ç»„ä»¶ä¸å¯è§ã€‚  å¦‚æœéœ€è¦ä» COM è®¿é—®æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ï¼Œ
++// è¯·å°†è¯¥ç±»å‹ä¸Šçš„ ComVisible ç‰¹æ€§è®¾ç½®ä¸º trueã€‚
++[assembly: ComVisible(false)]
++
++// å¦‚æœæ­¤é¡¹ç›®å‘ COM å…¬å¼€ï¼Œåˆ™ä¸‹åˆ— GUID ç”¨äºç±»å‹åº“çš„ ID
++[assembly: Guid("74593a21-dcf3-4216-b6cd-ddc2665bcef5")]
++
++// ç¨‹åºé›†çš„ç‰ˆæœ¬ä¿¡æ¯ç”±ä»¥ä¸‹å››ä¸ªå€¼ç»„æˆ: 
++//
++//      ä¸»ç‰ˆæœ¬
++//      æ¬¡ç‰ˆæœ¬
++//      ç”Ÿæˆå·
++//      ä¿®è®¢å·
++//
++// å¯ä»¥æŒ‡å®šæ‰€æœ‰è¿™äº›å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨â€œç”Ÿæˆå·â€å’Œâ€œä¿®è®¢å·â€çš„é»˜è®¤å€¼ï¼Œ
++// æ–¹æ³•æ˜¯æŒ‰å¦‚ä¸‹æ‰€ç¤ºä½¿ç”¨â€œ*â€: 
++// [assembly:  AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1.csproj
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1.csproj	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests1.csproj	(working copy)
+@@ -0,0 +1,82 @@
++ï»¿<?xml version="1.0" encoding="utf-8"?>
++<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++  <PropertyGroup>
++    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
++    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
++    <ProjectGuid>{A15A1276-49F5-428E-8FCD-F836548EEAF0}</ProjectGuid>
++    <OutputType>Library</OutputType>
++    <AppDesignerFolder>Properties</AppDesignerFolder>
++    <RootNamespace>è½¦è½®æ“¦ä¼¤_å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1</RootNamespace>
++    <AssemblyName>è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests1</AssemblyName>
++    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
++    <FileAlignment>512</FileAlignment>
++    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
++    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
++    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
++    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
++    <IsCodedUITest>False</IsCodedUITest>
++    <TestProjectType>UnitTest</TestProjectType>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
++    <DebugSymbols>true</DebugSymbols>
++    <DebugType>full</DebugType>
++    <Optimize>false</Optimize>
++    <OutputPath>bin\Debug\</OutputPath>
++    <DefineConstants>DEBUG;TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
++    <DebugType>pdbonly</DebugType>
++    <Optimize>true</Optimize>
++    <OutputPath>bin\Release\</OutputPath>
++    <DefineConstants>TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <ItemGroup>
++    <Reference Include="System" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
++      </ItemGroup>
++    </When>
++    <Otherwise>
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
++      </ItemGroup>
++    </Otherwise>
++  </Choose>
++  <ItemGroup>
++    <Compile Include="Properties\AssemblyInfo.cs" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++      </ItemGroup>
++    </When>
++  </Choose>
++  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
++  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
++  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
++       Other similar extension points exist, see Microsoft.Common.targets.
++  <Target Name="BeforeBuild">
++  </Target>
++  <Target Name="AfterBuild">
++  </Target>
++  -->
++</Project>
+\ No newline at end of file
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/Properties/AssemblyInfo.cs
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/Properties/AssemblyInfo.cs	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/Properties/AssemblyInfo.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++// æœ‰å…³ç¨‹åºé›†çš„å¸¸è§„ä¿¡æ¯é€šè¿‡ä»¥ä¸‹ç‰¹æ€§é›† 
++// æ§åˆ¶ã€‚æ›´æ”¹è¿™äº›ç‰¹æ€§å€¼å¯ä¿®æ”¹
++// ä¸ç¨‹åºé›†å…³è”çš„ä¿¡æ¯ã€‚
++[assembly: AssemblyTitle("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2")]
++[assembly: AssemblyCopyright("Copyright Â©  2015")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// å°† ComVisible è®¾ç½®ä¸º false ä¼šä½¿æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ 
++// å¯¹ COM ç»„ä»¶ä¸å¯è§ã€‚  å¦‚æœéœ€è¦ä» COM è®¿é—®æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ï¼Œ
++// è¯·å°†è¯¥ç±»å‹ä¸Šçš„ ComVisible ç‰¹æ€§è®¾ç½®ä¸º trueã€‚
++[assembly: ComVisible(false)]
++
++// å¦‚æœæ­¤é¡¹ç›®å‘ COM å…¬å¼€ï¼Œåˆ™ä¸‹åˆ— GUID ç”¨äºç±»å‹åº“çš„ ID
++[assembly: Guid("c483571f-83da-41ee-96bf-2904f22fbb51")]
++
++// ç¨‹åºé›†çš„ç‰ˆæœ¬ä¿¡æ¯ç”±ä»¥ä¸‹å››ä¸ªå€¼ç»„æˆ: 
++//
++//      ä¸»ç‰ˆæœ¬
++//      æ¬¡ç‰ˆæœ¬
++//      ç”Ÿæˆå·
++//      ä¿®è®¢å·
++//
++// å¯ä»¥æŒ‡å®šæ‰€æœ‰è¿™äº›å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨â€œç”Ÿæˆå·â€å’Œâ€œä¿®è®¢å·â€çš„é»˜è®¤å€¼ï¼Œ
++// æ–¹æ³•æ˜¯æŒ‰å¦‚ä¸‹æ‰€ç¤ºä½¿ç”¨â€œ*â€: 
++// [assembly:  AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2.csproj
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2.csproj	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2.csproj	(working copy)
+@@ -0,0 +1,82 @@
++ï»¿<?xml version="1.0" encoding="utf-8"?>
++<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++  <PropertyGroup>
++    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
++    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
++    <ProjectGuid>{D09FC3E4-9B05-4247-AE90-11931143751A}</ProjectGuid>
++    <OutputType>Library</OutputType>
++    <AppDesignerFolder>Properties</AppDesignerFolder>
++    <RootNamespace>è½¦è½®æ“¦ä¼¤_å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2</RootNamespace>
++    <AssemblyName>è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2</AssemblyName>
++    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
++    <FileAlignment>512</FileAlignment>
++    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
++    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
++    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
++    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
++    <IsCodedUITest>False</IsCodedUITest>
++    <TestProjectType>UnitTest</TestProjectType>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
++    <DebugSymbols>true</DebugSymbols>
++    <DebugType>full</DebugType>
++    <Optimize>false</Optimize>
++    <OutputPath>bin\Debug\</OutputPath>
++    <DefineConstants>DEBUG;TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
++    <DebugType>pdbonly</DebugType>
++    <Optimize>true</Optimize>
++    <OutputPath>bin\Release\</OutputPath>
++    <DefineConstants>TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <ItemGroup>
++    <Reference Include="System" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
++      </ItemGroup>
++    </When>
++    <Otherwise>
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
++      </ItemGroup>
++    </Otherwise>
++  </Choose>
++  <ItemGroup>
++    <Compile Include="Properties\AssemblyInfo.cs" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++      </ItemGroup>
++    </When>
++  </Choose>
++  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
++  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
++  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
++       Other similar extension points exist, see Microsoft.Common.targets.
++  <Target Name="BeforeBuild">
++  </Target>
++  <Target Name="AfterBuild">
++  </Target>
++  -->
++</Project>
+\ No newline at end of file
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2	(working copy)
+
+Property changes on: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2
+___________________________________________________________________
+Added: svn:ignore
+## -0,0 +1,10 ##
++[Bb]in
++obj
++[Dd]ebug
++[Rr]elease
++*.user
++*.aps
++*.eto
++ClientBin
++GeneratedArtifacts
++_Pvt_Extensions
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/Properties/AssemblyInfo.cs
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/Properties/AssemblyInfo.cs	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/Properties/AssemblyInfo.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++// æœ‰å…³ç¨‹åºé›†çš„å¸¸è§„ä¿¡æ¯é€šè¿‡ä»¥ä¸‹ç‰¹æ€§é›† 
++// æ§åˆ¶ã€‚æ›´æ”¹è¿™äº›ç‰¹æ€§å€¼å¯ä¿®æ”¹
++// ä¸ç¨‹åºé›†å…³è”çš„ä¿¡æ¯ã€‚
++[assembly: AssemblyTitle("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2")]
++[assembly: AssemblyCopyright("Copyright Â©  2015")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// å°† ComVisible è®¾ç½®ä¸º false ä¼šä½¿æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ 
++// å¯¹ COM ç»„ä»¶ä¸å¯è§ã€‚  å¦‚æœéœ€è¦ä» COM è®¿é—®æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ï¼Œ
++// è¯·å°†è¯¥ç±»å‹ä¸Šçš„ ComVisible ç‰¹æ€§è®¾ç½®ä¸º trueã€‚
++[assembly: ComVisible(false)]
++
++// å¦‚æœæ­¤é¡¹ç›®å‘ COM å…¬å¼€ï¼Œåˆ™ä¸‹åˆ— GUID ç”¨äºç±»å‹åº“çš„ ID
++[assembly: Guid("c483571f-83da-41ee-96bf-2904f22fbb51")]
++
++// ç¨‹åºé›†çš„ç‰ˆæœ¬ä¿¡æ¯ç”±ä»¥ä¸‹å››ä¸ªå€¼ç»„æˆ: 
++//
++//      ä¸»ç‰ˆæœ¬
++//      æ¬¡ç‰ˆæœ¬
++//      ç”Ÿæˆå·
++//      ä¿®è®¢å·
++//
++// å¯ä»¥æŒ‡å®šæ‰€æœ‰è¿™äº›å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨â€œç”Ÿæˆå·â€å’Œâ€œä¿®è®¢å·â€çš„é»˜è®¤å€¼ï¼Œ
++// æ–¹æ³•æ˜¯æŒ‰å¦‚ä¸‹æ‰€ç¤ºä½¿ç”¨â€œ*â€: 
++// [assembly:  AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/Properties/AssemblyInfo.cs
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/Properties/AssemblyInfo.cs	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/Properties/AssemblyInfo.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++// æœ‰å…³ç¨‹åºé›†çš„å¸¸è§„ä¿¡æ¯é€šè¿‡ä»¥ä¸‹ç‰¹æ€§é›† 
++// æ§åˆ¶ã€‚æ›´æ”¹è¿™äº›ç‰¹æ€§å€¼å¯ä¿®æ”¹
++// ä¸ç¨‹åºé›†å…³è”çš„ä¿¡æ¯ã€‚
++[assembly: AssemblyTitle("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2")]
++[assembly: AssemblyCopyright("Copyright Â©  2015")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// å°† ComVisible è®¾ç½®ä¸º false ä¼šä½¿æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ 
++// å¯¹ COM ç»„ä»¶ä¸å¯è§ã€‚  å¦‚æœéœ€è¦ä» COM è®¿é—®æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ï¼Œ
++// è¯·å°†è¯¥ç±»å‹ä¸Šçš„ ComVisible ç‰¹æ€§è®¾ç½®ä¸º trueã€‚
++[assembly: ComVisible(false)]
++
++// å¦‚æœæ­¤é¡¹ç›®å‘ COM å…¬å¼€ï¼Œåˆ™ä¸‹åˆ— GUID ç”¨äºç±»å‹åº“çš„ ID
++[assembly: Guid("c483571f-83da-41ee-96bf-2904f22fbb51")]
++
++// ç¨‹åºé›†çš„ç‰ˆæœ¬ä¿¡æ¯ç”±ä»¥ä¸‹å››ä¸ªå€¼ç»„æˆ: 
++//
++//      ä¸»ç‰ˆæœ¬
++//      æ¬¡ç‰ˆæœ¬
++//      ç”Ÿæˆå·
++//      ä¿®è®¢å·
++//
++// å¯ä»¥æŒ‡å®šæ‰€æœ‰è¿™äº›å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨â€œç”Ÿæˆå·â€å’Œâ€œä¿®è®¢å·â€çš„é»˜è®¤å€¼ï¼Œ
++// æ–¹æ³•æ˜¯æŒ‰å¦‚ä¸‹æ‰€ç¤ºä½¿ç”¨â€œ*â€: 
++// [assembly:  AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2.csproj
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2.csproj	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests2.csproj	(working copy)
+@@ -0,0 +1,82 @@
++ï»¿<?xml version="1.0" encoding="utf-8"?>
++<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++  <PropertyGroup>
++    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
++    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
++    <ProjectGuid>{D09FC3E4-9B05-4247-AE90-11931143751A}</ProjectGuid>
++    <OutputType>Library</OutputType>
++    <AppDesignerFolder>Properties</AppDesignerFolder>
++    <RootNamespace>è½¦è½®æ“¦ä¼¤_å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2</RootNamespace>
++    <AssemblyName>è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests2</AssemblyName>
++    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
++    <FileAlignment>512</FileAlignment>
++    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
++    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
++    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
++    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
++    <IsCodedUITest>False</IsCodedUITest>
++    <TestProjectType>UnitTest</TestProjectType>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
++    <DebugSymbols>true</DebugSymbols>
++    <DebugType>full</DebugType>
++    <Optimize>false</Optimize>
++    <OutputPath>bin\Debug\</OutputPath>
++    <DefineConstants>DEBUG;TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
++    <DebugType>pdbonly</DebugType>
++    <Optimize>true</Optimize>
++    <OutputPath>bin\Release\</OutputPath>
++    <DefineConstants>TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <ItemGroup>
++    <Reference Include="System" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
++      </ItemGroup>
++    </When>
++    <Otherwise>
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
++      </ItemGroup>
++    </Otherwise>
++  </Choose>
++  <ItemGroup>
++    <Compile Include="Properties\AssemblyInfo.cs" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++      </ItemGroup>
++    </When>
++  </Choose>
++  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
++  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
++  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
++       Other similar extension points exist, see Microsoft.Common.targets.
++  <Target Name="BeforeBuild">
++  </Target>
++  <Target Name="AfterBuild">
++  </Target>
++  -->
++</Project>
+\ No newline at end of file
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/Properties/AssemblyInfo.cs
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/Properties/AssemblyInfo.cs	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/Properties/AssemblyInfo.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++// æœ‰å…³ç¨‹åºé›†çš„å¸¸è§„ä¿¡æ¯é€šè¿‡ä»¥ä¸‹ç‰¹æ€§é›† 
++// æ§åˆ¶ã€‚æ›´æ”¹è¿™äº›ç‰¹æ€§å€¼å¯ä¿®æ”¹
++// ä¸ç¨‹åºé›†å…³è”çš„ä¿¡æ¯ã€‚
++[assembly: AssemblyTitle("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests")]
++[assembly: AssemblyCopyright("Copyright Â©  2015")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// å°† ComVisible è®¾ç½®ä¸º false ä¼šä½¿æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ 
++// å¯¹ COM ç»„ä»¶ä¸å¯è§ã€‚  å¦‚æœéœ€è¦ä» COM è®¿é—®æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ï¼Œ
++// è¯·å°†è¯¥ç±»å‹ä¸Šçš„ ComVisible ç‰¹æ€§è®¾ç½®ä¸º trueã€‚
++[assembly: ComVisible(false)]
++
++// å¦‚æœæ­¤é¡¹ç›®å‘ COM å…¬å¼€ï¼Œåˆ™ä¸‹åˆ— GUID ç”¨äºç±»å‹åº“çš„ ID
++[assembly: Guid("e9620cf8-14f6-4d7b-ab9f-d99848b94ea2")]
++
++// ç¨‹åºé›†çš„ç‰ˆæœ¬ä¿¡æ¯ç”±ä»¥ä¸‹å››ä¸ªå€¼ç»„æˆ: 
++//
++//      ä¸»ç‰ˆæœ¬
++//      æ¬¡ç‰ˆæœ¬
++//      ç”Ÿæˆå·
++//      ä¿®è®¢å·
++//
++// å¯ä»¥æŒ‡å®šæ‰€æœ‰è¿™äº›å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨â€œç”Ÿæˆå·â€å’Œâ€œä¿®è®¢å·â€çš„é»˜è®¤å€¼ï¼Œ
++// æ–¹æ³•æ˜¯æŒ‰å¦‚ä¸‹æ‰€ç¤ºä½¿ç”¨â€œ*â€: 
++// [assembly:  AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/Properties/AssemblyInfo.cs
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/Properties/AssemblyInfo.cs	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/Properties/AssemblyInfo.cs	(working copy)
+@@ -0,0 +1,36 @@
++ï»¿using System.Reflection;
++using System.Runtime.CompilerServices;
++using System.Runtime.InteropServices;
++
++// æœ‰å…³ç¨‹åºé›†çš„å¸¸è§„ä¿¡æ¯é€šè¿‡ä»¥ä¸‹ç‰¹æ€§é›† 
++// æ§åˆ¶ã€‚æ›´æ”¹è¿™äº›ç‰¹æ€§å€¼å¯ä¿®æ”¹
++// ä¸ç¨‹åºé›†å…³è”çš„ä¿¡æ¯ã€‚
++[assembly: AssemblyTitle("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests")]
++[assembly: AssemblyDescription("")]
++[assembly: AssemblyConfiguration("")]
++[assembly: AssemblyCompany("")]
++[assembly: AssemblyProduct("è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests")]
++[assembly: AssemblyCopyright("Copyright Â©  2015")]
++[assembly: AssemblyTrademark("")]
++[assembly: AssemblyCulture("")]
++
++// å°† ComVisible è®¾ç½®ä¸º false ä¼šä½¿æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ 
++// å¯¹ COM ç»„ä»¶ä¸å¯è§ã€‚  å¦‚æœéœ€è¦ä» COM è®¿é—®æ­¤ç¨‹åºé›†ä¸­çš„ç±»å‹ï¼Œ
++// è¯·å°†è¯¥ç±»å‹ä¸Šçš„ ComVisible ç‰¹æ€§è®¾ç½®ä¸º trueã€‚
++[assembly: ComVisible(false)]
++
++// å¦‚æœæ­¤é¡¹ç›®å‘ COM å…¬å¼€ï¼Œåˆ™ä¸‹åˆ— GUID ç”¨äºç±»å‹åº“çš„ ID
++[assembly: Guid("e9620cf8-14f6-4d7b-ab9f-d99848b94ea2")]
++
++// ç¨‹åºé›†çš„ç‰ˆæœ¬ä¿¡æ¯ç”±ä»¥ä¸‹å››ä¸ªå€¼ç»„æˆ: 
++//
++//      ä¸»ç‰ˆæœ¬
++//      æ¬¡ç‰ˆæœ¬
++//      ç”Ÿæˆå·
++//      ä¿®è®¢å·
++//
++// å¯ä»¥æŒ‡å®šæ‰€æœ‰è¿™äº›å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨â€œç”Ÿæˆå·â€å’Œâ€œä¿®è®¢å·â€çš„é»˜è®¤å€¼ï¼Œ
++// æ–¹æ³•æ˜¯æŒ‰å¦‚ä¸‹æ‰€ç¤ºä½¿ç”¨â€œ*â€: 
++// [assembly:  AssemblyVersion("1.0.*")]
++[assembly: AssemblyVersion("1.0.0.0")]
++[assembly: AssemblyFileVersion("1.0.0.0")]
+Index: ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests.csproj
+===================================================================
+--- ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests.csproj	(revision 0)
++++ ³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests/³µÂÖ²ÁÉË¡¢ÍâĞÎ³ß´ç±¨¾¯ÃÅÏŞÅäÖÃ¹¤¾ßTests.csproj	(working copy)
+@@ -0,0 +1,82 @@
++ï»¿<?xml version="1.0" encoding="utf-8"?>
++<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
++  <PropertyGroup>
++    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
++    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
++    <ProjectGuid>{DCAD4656-69C1-4F16-B15E-8B940BBF3719}</ProjectGuid>
++    <OutputType>Library</OutputType>
++    <AppDesignerFolder>Properties</AppDesignerFolder>
++    <RootNamespace>è½¦è½®æ“¦ä¼¤_å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests</RootNamespace>
++    <AssemblyName>è½¦è½®æ“¦ä¼¤ã€å¤–å½¢å°ºå¯¸æŠ¥è­¦é—¨é™é…ç½®å·¥å…·Tests</AssemblyName>
++    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
++    <FileAlignment>512</FileAlignment>
++    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
++    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
++    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
++    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
++    <IsCodedUITest>False</IsCodedUITest>
++    <TestProjectType>UnitTest</TestProjectType>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
++    <DebugSymbols>true</DebugSymbols>
++    <DebugType>full</DebugType>
++    <Optimize>false</Optimize>
++    <OutputPath>bin\Debug\</OutputPath>
++    <DefineConstants>DEBUG;TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
++    <DebugType>pdbonly</DebugType>
++    <Optimize>true</Optimize>
++    <OutputPath>bin\Release\</OutputPath>
++    <DefineConstants>TRACE</DefineConstants>
++    <ErrorReport>prompt</ErrorReport>
++    <WarningLevel>4</WarningLevel>
++  </PropertyGroup>
++  <ItemGroup>
++    <Reference Include="System" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
++      </ItemGroup>
++    </When>
++    <Otherwise>
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
++      </ItemGroup>
++    </Otherwise>
++  </Choose>
++  <ItemGroup>
++    <Compile Include="Properties\AssemblyInfo.cs" />
++  </ItemGroup>
++  <Choose>
++    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
++      <ItemGroup>
++        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
++          <Private>False</Private>
++        </Reference>
++      </ItemGroup>
++    </When>
++  </Choose>
++  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
++  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
++  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
++       Other similar extension points exist, see Microsoft.Common.targets.
++  <Target Name="BeforeBuild">
++  </Target>
++  <Target Name="AfterBuild">
++  </Target>
++  -->
++</Project>
+\ No newline at end of file

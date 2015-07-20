@@ -1,0 +1,93 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "车轮擦伤、外形尺寸报警门限配置工具测试", "车型参数修改器测试\车轮擦伤、外形尺寸报警门限配置工具测试.csproj", "{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A844C3B6-A155-49BA-AE4D-4B715A7CF381}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+		车型参数修改器.vsmdi = 车型参数修改器.vsmdi
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "车轮擦伤、外形尺寸报警门限配置工具", "车型参数修改器\车轮擦伤、外形尺寸报警门限配置工具.csproj", "{71C15A4B-DA67-4040-8C5F-010BE6A352E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonModel", "CommonModel\CommonModel.csproj", "{E576F348-BF0C-41C9-9A0E-43652F978337}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCModel", "DCModel\DCModel.csproj", "{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JCModel", "JCModel\JCModel.csproj", "{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{08FCD19C-4304-4C0F-9745-00F2DE80FCF9}.Release|x86.ActiveCfg = Release|Any CPU
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Debug|x86.ActiveCfg = Debug|x86
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Debug|x86.Build.0 = Debug|x86
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Release|Any CPU.ActiveCfg = Release|x86
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Release|Mixed Platforms.Build.0 = Release|x86
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Release|x86.ActiveCfg = Release|x86
+		{71C15A4B-DA67-4040-8C5F-010BE6A352E8}.Release|x86.Build.0 = Release|x86
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E576F348-BF0C-41C9-9A0E-43652F978337}.Release|x86.ActiveCfg = Release|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{72B727B9-9F2F-4E65-B396-C6AAE40BCD94}.Release|x86.ActiveCfg = Release|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{13E0B51D-1B4E-435D-A6BE-A88CF2A89041}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = 车型参数修改器.vsmdi
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+E:\Project\车型参数修改器\车型参数修改器测试\obj\Debug\车型参数修改器测试.csprojResolveAssemblyReference.cache
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\车型参数修改器测试.dll.config
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\车型参数修改器测试.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\车型参数修改器测试.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\DataContext.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Iesi.Collections.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Moq.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\nunit.framework.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\DataContext.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Iesi.Collections.xml
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Moq.xml
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\nunit.framework.xml
+E:\Project\车型参数修改器\车型参数修改器测试\obj\Debug\车型参数修改器测试.dll
+E:\Project\车型参数修改器\车型参数修改器测试\obj\Debug\车型参数修改器测试.pdb
