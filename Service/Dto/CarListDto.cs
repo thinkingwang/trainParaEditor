@@ -12,6 +12,7 @@ namespace Service.Dto
 {
     public class CarListDto:Dto
     {
+        private static CarList _carList;
         private static BindingSource _source;
         private static DataGridView _dgv;
         private static BindingNavigator _bn;
@@ -33,20 +34,44 @@ namespace Service.Dto
         {
         }
 
-        public static DataGridView GetDgv()
+        public static void SetDgv(DataGridView dgv, BindingNavigator bn)
         {
-            return _dgv ?? (_dgv = new DataGridView {DataSource = GetSource()});
+            _dgv = dgv;
+            _source = new BindingSource();
+            _bn = bn;
+            _bn.BindingSource = _source;
+            _dgv.DataSource = _source;
+            _dgv.CellBeginEdit += _dgv_CellBeginEdit;
+            _dgv.CellEndEdit += _dgv_CellEndEdit;
         }
 
-        public static BindingSource GetSource()
+        static void _dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (_source == null)
+            if (_carList == null || !_dgv.Columns[e.ColumnIndex].Name.Equals("carNo"))
             {
-
-                _source = new BindingSource();
+                return;
             }
-            return _source;
+            ThrContext.Set<CarList>().Add(_carList);
+            ThrContext.SaveChanges();
+            _source.DataSource = ThrContext.GetCarLists(_carList.testDateTime);
         }
+
+        static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            if (_dgv.Columns[e.ColumnIndex].Name.Equals("carNo"))
+            {
+                var time = DateTime.Parse(_dgv.Rows[0].Cells["testDateTime"].Value.ToString());
+                _carList = (from a in ThrContext.Set<CarList>() where a.testDateTime.Equals(time) select a).ToList().ElementAt(e.RowIndex);
+                ThrContext.Set<CarList>().Remove(_carList);
+                ThrContext.SaveChanges();
+            }
+        }
+
+        private static BindingSource GetSource()
+        {
+            return _source ?? (_source = new BindingSource());
+        }
+
         public static BindingNavigator GetBn(IContainer components)
         {
             if (_bn == null)
@@ -64,8 +89,8 @@ namespace Service.Dto
         {
             try
             {
-                thrContext.InsertCarList(testDateTime);
-                thrContext.SaveChanges();
+                ThrContext.InsertCarList(testDateTime);
+                ThrContext.SaveChanges();
                 Nlogger.Trace("车厢列表增加新行");
             }
             catch (Exception e)
@@ -79,29 +104,29 @@ namespace Service.Dto
 
             var source = DateTime.Parse(sourceText);
             var des = DateTime.Parse(desText);
-            var carSources = from v in thrContext.Set<CarList>() where v.testDateTime.Equals(source) select v;
-            var cardeses = (from v in thrContext.Set<CarList>() where v.testDateTime.Equals(des) select v).ToList();
+            var carSources = from v in ThrContext.Set<CarList>() where v.testDateTime.Equals(source) select v;
+            var cardeses = (from v in ThrContext.Set<CarList>() where v.testDateTime.Equals(des) select v).ToList();
             foreach (var carList in cardeses)
             {
-                thrContext.Set<CarList>().Remove(carList);
+                ThrContext.Set<CarList>().Remove(carList);
             }
-            var detect = thrContext.Set<Detect>().FirstOrDefault(m => m.testDateTime.Equals(des));
+            var detect = ThrContext.Set<Detect>().FirstOrDefault(m => m.testDateTime.Equals(des));
             if (overWriteProfile || overWriteTanShang || overWriteCaShang ||detect == null)
             {
                 if (detect != null && overWriteProfile && overWriteTanShang && overWriteCaShang)
                 {
-                    thrContext.Set<Detect>().Remove(detect);
-                    thrContext.SaveChanges();
+                    ThrContext.Set<Detect>().Remove(detect);
+                    ThrContext.SaveChanges();
                 }
-                var detectSource = thrContext.Set<Detect>().
+                var detectSource = ThrContext.Set<Detect>().
                     FirstOrDefault(m => m.testDateTime.Equals(source));
                 if (detectSource != null)
                 {
                     var detectDes = DeepCopy(detectSource);
                     detectDes.testDateTime = des;
                     detectDes.outDateTime = des;
-                    thrContext.Set<Detect>().AddOrUpdate(detectDes);
-                    thrContext.SaveChanges();
+                    ThrContext.Set<Detect>().AddOrUpdate(detectDes);
+                    ThrContext.SaveChanges();
                     if (overWriteTanShang||detect == null)
                     {
                         TanRepair(sourceText, desText);
@@ -126,9 +151,9 @@ namespace Service.Dto
                     carNo2 = carSource.carNo2,
                     posNo = carSource.posNo
                 };
-                thrContext.Set<CarList>().Add(car);
+                ThrContext.Set<CarList>().Add(car);
             }
-            thrContext.SaveChanges();
+            ThrContext.SaveChanges();
         }
 
         /// <summary>
@@ -146,7 +171,7 @@ namespace Service.Dto
                     return;
                 }
                 Nlogger.Trace("对操作对象（时刻作为主键）：" + desText + "，进行了探伤补缺操作，源时刻为：" + sourceText);
-                thrContext.proc_tanShangDataFill(des, source);
+                ThrContext.proc_tanShangDataFill(des, source);
                     string sourcePath = _picturePath + @"\" + source.ToString(@"yyyy\\MM");
                     if (!Directory.Exists(sourcePath))
                     {
@@ -188,7 +213,7 @@ namespace Service.Dto
                     return;
                 }
                 Nlogger.Trace("对操作对象（时刻作为主键）：" + desText + "，进行了擦伤补缺操作，源时刻为：" + sourceText);
-                thrContext.proc_caShangDataFill(des, source);
+                ThrContext.proc_caShangDataFill(des, source);
                 GetValue(source, des, "擦伤数据");
                 GetValue(source, des, "擦伤结果");
             }
@@ -225,14 +250,33 @@ namespace Service.Dto
         public static void GetCars(string time)
         {
             var testDateTime = DateTime.Parse(time);
-            _source.DataSource = thrContext.GetCarLists(testDateTime);
+            _source.DataSource = ThrContext.GetCarLists(testDateTime);
+            switch (serverType)
+            {
+                case "DC":
+                    _dgv.Columns["testDateTime"].DisplayIndex = 0;
+                    _dgv.Columns["posNo"].DisplayIndex = 1;
+                    _dgv.Columns["carNo"].DisplayIndex = 2;
+                    break;
+                case "JC":
+                    _dgv.Columns["testDateTime"].DisplayIndex = 0;
+                    _dgv.Columns["posNo"].DisplayIndex = 1;
+                    _dgv.Columns["carNo"].DisplayIndex = 2;
+                    _dgv.Columns["direction"].DisplayIndex = 3;
+                    break;
+                default:
+                    _dgv.Columns["testDateTime"].DisplayIndex = 0;
+                    _dgv.Columns["posNo"].DisplayIndex = 1;
+                    _dgv.Columns["carNo"].DisplayIndex = 2;
+                    break;
+            }
         }
 
         public static void Delete(string time, int index)
         {
             var testDateTime = DateTime.Parse(time);
-            thrContext.DeleteCarList(testDateTime, index);
-            thrContext.SaveChanges();
+            ThrContext.DeleteCarList(testDateTime, index);
+            ThrContext.SaveChanges();
             Nlogger.Trace("车厢列表删除一行,时刻为：" + time);
         }
 

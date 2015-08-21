@@ -8,7 +8,7 @@ namespace CommonModel
     [Table("CarList")]
     public partial class CarList
     {
-        private static NLog.Logger Nlogger = NLog.LogManager.GetLogger("Modifer");
+        private static readonly NLog.Logger Nlogger = NLog.LogManager.GetLogger("Modifer");
         private string _carNo;
 
         [DisplayName("ºÏ≤‚ ±º‰"), ReadOnly(true)]

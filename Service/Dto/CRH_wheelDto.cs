@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.Entity.Migrations;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using CommonModel;
 using CommonModel.Common;
 
@@ -9,152 +12,124 @@ namespace Service.Dto
     public class CRH_wheelDto : Dto
     {
         private readonly CRH_wheel _crhWheel;
+        private static BindingSource _source;
+        private static DataGridView _dgv;
+        private static BindingNavigator _bn;
 
         private CRH_wheelDto(CRH_wheel crh)
         {
             _crhWheel = crh;
         }
 
-        [ReadOnly(true), DisplayName(@"车型")]
-        public string trainType
+        public static void SetDgv(DataGridView dgv,  BindingNavigator bn)
         {
-            get { return _crhWheel.trainType; }
-        }
-
-        [ReadOnly(true), DisplayName(@"轴序号")]
-        public byte axleNo
-        {
-            get { return _crhWheel.axleNo; }
-        }
-
-        [ReadOnly(true), DisplayName(@"轮位置")]
-        public wheel wheelNo
-        {
-            get { return (wheel) _crhWheel.wheelNo; }
-        }
-
-        [DisplayName(@"轴位")]
-        public byte axlePos
-        {
-            get { return _crhWheel.axlePos; }
-            set
-            {
-                Nlogger.Trace("编辑动车车轮(CRH_wheel)轴位，初始为：" + _crhWheel.axlePos + ",修改后为：" + value);
-                _crhWheel.axlePos = value;
-                thrContext.SaveChanges();
-            }
-        }
-
-        [DisplayName(@"轮位")]
-        public byte wheelPos
-        {
-            get { return _crhWheel.wheelPos; }
-            set
-            {
-                Nlogger.Trace("编辑动车车轮(CRH_wheel)轮位，初始为：" + _crhWheel.wheelPos + ",修改后为：" + value);
-                _crhWheel.wheelPos = value;
-                thrContext.SaveChanges();
-            }
+            _dgv = dgv;
+            _source = new BindingSource();
+            _bn = bn;
+            _dgv.DataSource = _source;
+            _bn.BindingSource = _source;
         }
 
         public static IEnumerable<CRH_wheel> GetAll()
         {
-            return thrContext.Set<CRH_wheel>().ToList();
+            var data = from d in ThrContext.Set<CRH_wheel>() select d;
+            return data.ToList();
         }
 
         public static IEnumerable<string> GetCrhWheelTypes()
         {
             //获取所有车型
             var trainTypes =
-                (from v in thrContext.Set<CRH_wheel>() select v.trainType).Distinct();
+                (from v in ThrContext.Set<CRH_wheel>() select v.trainType).Distinct();
             return trainTypes;
         }
 
-        public static IEnumerable<CRH_wheelDto> GetCrhWheel(string trainType)
+        public static void GetCrhWheel(string trainType)
         {
-            var result = new List<CRH_wheelDto>();
-            var data = from v in thrContext.Set<CRH_wheel>()
+            var data = from v in ThrContext.Set<CRH_wheel>()
                 where v.trainType == trainType
                 select v;
-            foreach (var crh in data)
+            _source.DataSource = data.ToList().OrderBy(m => m.axleNo).ThenBy(m => m.wheelPos);
+            if (_dgv.Columns.Count == 0)
             {
-                result.Add(new CRH_wheelDto(crh));
+                return;
             }
-            return result.OrderBy(m => m.axleNo).ThenBy(m => m.wheelPos);
+            //索引9列的单元格的背景色为淡蓝色
+            _dgv.Columns[0].DefaultCellStyle.BackColor = Color.Aqua;
+            //索引9列的单元格的背景色为淡蓝色
+            _dgv.Columns[1].DefaultCellStyle.BackColor = Color.Aqua;
+            //索引9列的单元格的背景色为淡蓝色
+            _dgv.Columns[2].DefaultCellStyle.BackColor = Color.Aqua;
         }
 
         public static void Delete(string trainType)
         {
-            var data = from v in thrContext.Set<CRH_wheel>()
+            var data = from v in ThrContext.Set<CRH_wheel>()
                 where v.trainType == trainType
                 select v;
             foreach (var crh in data)
             {
-                thrContext.Set<CRH_wheel>().Remove(crh);
+                ThrContext.Set<CRH_wheel>().Remove(crh);
             }
-            thrContext.SaveChanges();
+            ThrContext.SaveChanges();
         }
 
         public static void Delete(string trainType, byte axelNo, byte wheelNo)
         {
-            var data = from v in thrContext.Set<CRH_wheel>()
+            var data = from v in ThrContext.Set<CRH_wheel>()
                        where v.trainType == trainType&&v.axleNo ==axelNo && v.wheelNo == wheelNo
                        select v;
             foreach (var crh in data)
             {
-                thrContext.Set<CRH_wheel>().Remove(crh);
+                ThrContext.Set<CRH_wheel>().Remove(crh);
             }
-            thrContext.SaveChanges();
+            ThrContext.SaveChanges();
         }
 
 
         public static void Add(string trainType)
         {
-            var item = thrContext.Set<CRH_wheel>().Where(m => m.trainType.Equals(trainType)).OrderByDescending(m => m.axleNo).FirstOrDefault();
+            var item = ThrContext.Set<CRH_wheel>().Where(m => m.trainType.Equals(trainType)).OrderByDescending(m => m.axleNo).FirstOrDefault();
             if (item != null)
             {
                 var element = DeepCopy(item);
                 element.axleNo = (byte) (item.axleNo + 1);
                 element.wheelNo = 0;
-                thrContext.Set<CRH_wheel>().Add(element);
+                ThrContext.Set<CRH_wheel>().Add(element);
             }
             else
             {
-                thrContext.Set<CRH_wheel>().Add(new CRH_wheel()
+                ThrContext.Set<CRH_wheel>().Add(new CRH_wheel()
                 {
                     trainType = trainType,
                     axleNo = 0,
                     wheelNo = 0
                 });
             }
-            thrContext.SaveChanges();
+            ThrContext.SaveChanges();
         }
         public static void Copy(string trainType, string name)
         {
-            var data = from v in thrContext.Set<CRH_wheel>()
+            var data = from v in ThrContext.Set<CRH_wheel>()
                 where v.trainType == trainType
                 select v;
             foreach (var crh in data)
             {
                 var holds = DeepCopy(crh);
                 holds.trainType = name;
-                thrContext.Set<CRH_wheel>().Add(holds);
+                ThrContext.Set<CRH_wheel>().Add(holds);
             }
-            thrContext.SaveChanges();
+            ThrContext.SaveChanges();
         }
 
         public static void CreateDataBase(IEnumerable<CRH_wheel> data)
         {
-            foreach (var threshold in thrContext.Set<CRH_wheel>())
-            {
-                thrContext.Set<CRH_wheel>().Remove(threshold);
-            }
-            thrContext.SaveChanges();
             foreach (var thresholdse in data)
             {
-                thrContext.Set<CRH_wheel>().Add(thresholdse);
+                ThrContext.Set<CRH_wheel>().AddOrUpdate(thresholdse);
             }
-            thrContext.SaveChanges();
+            ThrContext.SaveChanges();
+            _source.DataSource = GetAll();
         }
     }
 }

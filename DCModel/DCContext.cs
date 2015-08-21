@@ -5,8 +5,6 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using CommonModel;
-using JCModel;
-
 namespace DCModel
 {
     public partial class DCContext : ModelContext
@@ -28,12 +26,18 @@ namespace DCModel
         public virtual DbSet<threshold> thresholds { get; set; }
         public virtual DbSet<TrainType> TrainTypes { get; set; }
         public virtual DbSet<WhmsTime> WhmsTimes { get; set; }
+        public void FixEfProviderServicesProblem()
+        {
+            //The Entity Framework provider type 'System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer'  
+            //for the 'System.Data.SqlClient' ADO.NET provider could not be loaded.   
+            //Make sure the provider assembly is available to the running application.   
+            //See http://go.microsoft.com/fwlink/?LinkId=260882 for more information.  
+
+            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+        }  
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Ignore<JCCarList>();
-
-            modelBuilder.Ignore<JCSequ>();
 
             modelBuilder.Entity<CarList>()
                 .Property(e => e.carNo)

@@ -1,6 +1,10 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 using CommonModel;
 using DCModel;
@@ -15,11 +19,15 @@ namespace Service.Dto
     public class Dto
     {
         public static Logger Nlogger;
-        protected static readonly ModelContext thrContext;
-        public static readonly Entities bwContext;
+        public static readonly ModelContext ThrContext;
+        public static readonly DataCenterContext CenterContext;
+        public static ServerContext ServerConfigContext;
+        public static readonly Entities BwContext;
         public static string ip = "127.0.0.1";
         public static string serverType = "DC";
+        public static string serverConnnectioString;
         public static XmlDocument Document { get; private set; }
+        public static AutoResetEvent AtEvent = new AutoResetEvent(false); 
         static Dto()
         {
             if (File.Exists("config.xml"))
@@ -37,24 +45,27 @@ namespace Service.Dto
                     serverType = node.Value;
                 }
             }
+            serverConnnectioString =
+                "Data Source=192.192.1.15;Initial Catalog=TYCHO_KF;Persist Security Info=True;User ID=sa;Password=sa123;multipleactiveresultsets=true";
+            ServerConfigContext = new ServerContext(serverConnnectioString);
             string connectString = string.Format(
                 "data source={0};initial catalog=tycho_kc;persist security info=True;user id=sa;password=sa123;MultipleActiveResultSets=True;App=EntityFramework",
                 ip);
             switch (serverType)
             {
                 case "DC":
-                    thrContext = new DCContext(connectString);
+                    ThrContext = new DCContext(connectString);
                     break;
                 case "JC":
-                    thrContext = new JCContext(connectString);
+                    ThrContext = new JCContext(connectString);
                     break;
             }
-
+            CenterContext = new DataCenterContext(string.Format("Data Source={0};Initial Catalog=aspnet-DeviceMonitor-20141104153122;Persist Security Info=True;User ID=sa;Password=sa123;multipleactiveresultsets=true", ip));
             string connectStringBase = string.Format(
                 "metadata=res://*/BaseWhpr.csdl|res://*/BaseWhpr.ssdl|res://*/BaseWhpr.msl;provider=System.Data.SqlClient;provider=System.Data.SqlClient;provider connection string=\"data source={0};initial catalog=BaseWhprP807;persist security info=True;user id=sa;password=sa123;multipleactiveresultsets=True;App=EntityFramework\"",
                 ip);
             //Context = new DCContext(ip);
-            bwContext = new Entities(connectStringBase);
+            BwContext = new Entities(connectStringBase);
             ConfigNlog();
         }
         /// <summary>

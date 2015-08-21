@@ -1,8 +1,10 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CommonModel
 {
+    [Serializable]
     public partial class threshold
     {
         [Key]

@@ -28,12 +28,12 @@ namespace JCModel
         public virtual DbSet<TrainType> TrainTypes { get; set; }
         public virtual DbSet<WhmsTime> WhmsTimes { get; set; }
 
+        public virtual DbSet<EngineLib> EngineLibs { get; set; }
+
+        public virtual DbSet<WheelPos> WheelPoses { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Ignore<CarList>();
-
-            modelBuilder.Ignore<Sequ>();
-
             modelBuilder.Entity<JCCarList>()
                 .Property(e => e.carNo)
                 .IsUnicode(false);

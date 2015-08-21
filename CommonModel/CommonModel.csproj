@@ -32,11 +32,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
@@ -55,20 +55,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.cs" />
     <Compile Include="CarList.cs" />
     <Compile Include="Common\SelectColumn.cs" />
     <Compile Include="Common\wheel.cs" />
     <Compile Include="CRH_wheel.cs" />
     <Compile Include="Detect.cs" />
+    <Compile Include="DataCenterContext.cs" />
+    <Compile Include="IPAddress.cs" />
+    <Compile Include="kfList.cs" />
     <Compile Include="ModelContext.cs" />
+    <Compile Include="opLog.cs" />
     <Compile Include="ProcData.cs" />
     <Compile Include="ProfileAdjust.cs" />
     <Compile Include="ProfileDetectResult.cs" />
     <Compile Include="ProfileDetectResult_real.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sequ.cs" />
+    <Compile Include="ServerContext.cs" />
     <Compile Include="threshold.cs" />
     <Compile Include="TrainType.cs" />
+    <Compile Include="UploadFailedData.cs" />
     <Compile Include="WhmsTime.cs" />
   </ItemGroup>
   <ItemGroup>

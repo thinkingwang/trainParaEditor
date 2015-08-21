@@ -40,12 +40,12 @@ namespace Service.Dto
         public static IEnumerable<ProfileDetectResultDto> GetProfileDetectResultDtos(DateTime time)
         {
             var result = new List<ProfileDetectResultDto>();
-            var data = from v in thrContext.Set<ProfileDetectResult>()
+            var data = from v in ThrContext.Set<ProfileDetectResult>()
                        where v.testDateTime.Equals(time)
                        select v;
             foreach (var thresholdse in data)
             {
-                thrContext.Entry(thresholdse).Reload();
+                ThrContext.Entry(thresholdse).Reload();
                 result.Add(new ProfileDetectResultDto(thresholdse));
             }
             return result;
@@ -64,10 +64,10 @@ namespace Service.Dto
         public static void CopySingleProfileDetectResultDto(DateTime time, int axel, byte wheel, DateTime desTime, int desaxel, byte deswheel)
         {
             var source =
-                thrContext.Set<ProfileDetectResult>().FirstOrDefault(
+                ThrContext.Set<ProfileDetectResult>().FirstOrDefault(
                     m => m.testDateTime.Equals(time) && m.axleNo.Equals(axel) && m.wheelNo.Equals(wheel));
             var des =
-                thrContext.Set<ProfileDetectResult>().FirstOrDefault(
+                ThrContext.Set<ProfileDetectResult>().FirstOrDefault(
                     m => m.testDateTime.Equals(desTime) && m.axleNo.Equals(desaxel) && m.wheelNo.Equals(deswheel));
             if (source == null||des == null)
             {
@@ -80,8 +80,8 @@ namespace Service.Dto
             des.TmMh = source.TmMh;
             des.Ncj = source.Ncj;
             des.Lj = source.Lj;
-            thrContext.SaveChanges();
-            thrContext.Profile(desTime);
+            ThrContext.SaveChanges();
+            ThrContext.Profile(desTime);
             Nlogger.Trace("对操作对象（时刻作为主键）：" + time + "轮号为：" + axel + "，进行了单轮外形补缺操作，源时刻为：" + desTime + "轮号为：" + desaxel);
         }
 
@@ -100,10 +100,10 @@ namespace Service.Dto
             int desaxel, byte deswheel, List<SelectColumn> columns)
         {
             var source =
-                thrContext.Set<ProfileDetectResult>().FirstOrDefault(
+                ThrContext.Set<ProfileDetectResult>().FirstOrDefault(
                     m => m.testDateTime.Equals(time) && m.axleNo.Equals(axel) && m.wheelNo.Equals(wheel));
             var des =
-                thrContext.Set<ProfileDetectResult>().FirstOrDefault(
+                ThrContext.Set<ProfileDetectResult>().FirstOrDefault(
                     m => m.testDateTime.Equals(desTime) && m.axleNo.Equals(desaxel) && m.wheelNo.Equals(deswheel));
             if (source == null || des == null)
             {
@@ -136,9 +136,9 @@ namespace Service.Dto
                         break;
                 }
             }
-            thrContext.SaveChanges();
-            thrContext.Profile(desTime);
-            thrContext.Profile_LjCha(desTime);
+            ThrContext.SaveChanges();
+            ThrContext.Profile(desTime);
+            ThrContext.Profile_LjCha(desTime);
             Nlogger.Trace("对操作对象（时刻作为主键）：" + time + "轮号为：" + axel + "，进行了特定项外形补缺操作，源时刻为：" + desTime + "轮号为：" + desaxel);
         }
 
@@ -156,7 +156,7 @@ namespace Service.Dto
                 return;
             }
             Nlogger.Trace("对操作对象（时刻作为主键）：" + thisTimeText + "，进行了外形补缺操作，源时刻为：" + lastTimeText);
-            var result = thrContext.proc_BatchDatafillByLastTime(thisTime, lastTime);
+            var result = ThrContext.proc_BatchDatafillByLastTime(thisTime, lastTime);
             switch (result)
             {
                 case 0:
@@ -172,15 +172,15 @@ namespace Service.Dto
                     MessageBox.Show(@"ProfileDetectResult_real表无上次日期数据");
                     return;
             }
-            if (thrContext.Set<ProfileDetectResult>().FirstOrDefault(m => m.testDateTime.Equals(lastTime)) != null)
+            if (ThrContext.Set<ProfileDetectResult>().FirstOrDefault(m => m.testDateTime.Equals(lastTime)) != null)
             {
-                var time = thrContext.Set<WhmsTime>().FirstOrDefault(m => m.tychoTime.Equals(lastTime));
-                thrContext.Set<WhmsTime>().AddOrUpdate(new WhmsTime()
+                var time = ThrContext.Set<WhmsTime>().FirstOrDefault(m => m.tychoTime.Equals(lastTime));
+                ThrContext.Set<WhmsTime>().AddOrUpdate(new WhmsTime()
                 {
                     tychoTime = thisTime,
                     whmsTime1 = thisTime
                 });
-                thrContext.SaveChanges();
+                ThrContext.SaveChanges();
                 if (time == null)
                 {
                     return;
@@ -244,7 +244,7 @@ namespace Service.Dto
             //set
             //{
             //    _profileDetectResult.LwHd = value;
-            //    thrContext.SaveChanges();
+            //    ThrContext.SaveChanges();
             //}
         }
         [DisplayName(@"QR值")]

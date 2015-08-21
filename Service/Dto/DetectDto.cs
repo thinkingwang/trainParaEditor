@@ -16,11 +16,11 @@ namespace Service.Dto
         public static void Editor(string sourceText, string no)
         {
             DateTime source = DateTime.Parse(sourceText);
-            Detect detect = thrContext.Set<Detect>().FirstOrDefault(m => m.testDateTime.Equals(source));
+            Detect detect = ThrContext.Set<Detect>().FirstOrDefault(m => m.testDateTime.Equals(source));
             if (detect != null)
             {
                 detect.engNum = no;
-                thrContext.SaveChanges();
+                ThrContext.SaveChanges();
                 Nlogger.Trace("对操作对象（时刻作为主键）：" + detect.testDateTime + "，进行了车组号编辑操作");
             }
         }
@@ -28,7 +28,7 @@ namespace Service.Dto
         public static string GetEngNum(string time)
         {
             DateTime source = DateTime.Parse(time);
-            Detect detect = thrContext.Set<Detect>().FirstOrDefault(m => m.testDateTime.Equals(source));
+            Detect detect = ThrContext.Set<Detect>().FirstOrDefault(m => m.testDateTime.Equals(source));
             return detect == null ? "" : detect.engNum;
         }
     }

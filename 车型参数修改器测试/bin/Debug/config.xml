@@ -15,6 +15,6 @@
   <add key="CSD" value="测试" />
   <add key="PicturePath" value="D:\tycho\data" />
   <add key="ProfilePath" value="D:\Tycho\外形数据" />
-  <add key="serverType" value="DC"/>
-  <add key="thresholdsContext" value="10.10.12.5"/>
+  <add key="serverType" value="JC"/>
+  <add key="thresholdsContext" value="192.192.1.15"/>
 </config>

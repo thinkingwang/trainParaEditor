@@ -16,7 +16,7 @@ namespace Service.Dto
         public static IEnumerable<ProfileAdjustDto> GetAll()
         {
             var result = new List<ProfileAdjustDto>();
-            var data = from v in thrContext.Set<ProfileAdjust>()
+            var data = from v in ThrContext.Set<ProfileAdjust>()
                        select v;
             foreach (var thresholdse in data)
             {
@@ -42,7 +42,7 @@ namespace Service.Dto
             {
                 Nlogger.Trace("编辑表ProfileAdjust的Lj字段，初始为：" + _profileDetectResult.Lj + ",修改后为：" + value);
                 _profileDetectResult.Lj = value;
-                thrContext.SaveChanges();
+                ThrContext.SaveChanges();
             }
         }
         [DisplayName(@"轮缘厚度")]
@@ -53,7 +53,7 @@ namespace Service.Dto
             {
                 Nlogger.Trace("编辑表ProfileAdjust的axleNum字段，初始为：" + _profileDetectResult.LyHd + ",修改后为：" + value);
                 _profileDetectResult.LyHd = value;
-                thrContext.SaveChanges();
+                ThrContext.SaveChanges();
             }
         }
         [DisplayName(@"轮缘高度")]
@@ -64,7 +64,7 @@ namespace Service.Dto
             {
                 Nlogger.Trace("编辑表ProfileAdjust的LyGd字段，初始为：" + _profileDetectResult.LyGd + ",修改后为：" + value);
                 _profileDetectResult.LyGd = value;
-                thrContext.SaveChanges();
+                ThrContext.SaveChanges();
             }
         }
 
@@ -76,7 +76,7 @@ namespace Service.Dto
             {
                 Nlogger.Trace("编辑表ProfileAdjust的LwHd字段，初始为：" + _profileDetectResult.LwHd + ",修改后为：" + value);
                 _profileDetectResult.LwHd = value;
-                thrContext.SaveChanges();
+                ThrContext.SaveChanges();
             }
         }
         [DisplayName(@"轮辋厚度")]
@@ -87,7 +87,7 @@ namespace Service.Dto
             {
                 Nlogger.Trace("编辑表ProfileAdjust的LwHd2字段，初始为：" + _profileDetectResult.LwHd2 + ",修改后为：" + value);
                 _profileDetectResult.LwHd2 = value;
-                thrContext.SaveChanges();
+                ThrContext.SaveChanges();
             }
         }
         [DisplayName(@"QR值")]
@@ -98,7 +98,7 @@ namespace Service.Dto
             {
                 Nlogger.Trace("编辑表ProfileAdjust的QR字段，初始为：" + _profileDetectResult.QR + ",修改后为：" + value);
                 _profileDetectResult.QR = value;
-                thrContext.SaveChanges();
+                ThrContext.SaveChanges();
             }
         }
         [DisplayName(@"内侧距")]
@@ -109,7 +109,7 @@ namespace Service.Dto
             {
                 Nlogger.Trace("编辑表ProfileAdjust的Ncj字段，初始为：" + _profileDetectResult.Ncj + ",修改后为：" + value);
                 _profileDetectResult.Ncj = value;
-                thrContext.SaveChanges();
+                ThrContext.SaveChanges();
             }
         }
     }
