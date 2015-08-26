@@ -42,8 +42,8 @@ namespace Service.Dto
             }
             if (!ThrContext.Set<ProfileAdjust>().Any())
             {
-                ThrContext.Set<ProfileAdjust>().Add(new ProfileAdjust());
-                ThrContext.Set<ProfileAdjust>().Add(new ProfileAdjust());
+                ThrContext.Set<ProfileAdjust>().Add(new ProfileAdjust(){position = 0});
+                ThrContext.Set<ProfileAdjust>().Add(new ProfileAdjust(){position = 1});
             }
             ThrContext.SaveChanges();
             

@@ -14,6 +14,7 @@ namespace JCModel
             : base(conStr)
         {
             Configuration.ProxyCreationEnabled = false;
+            Database.CommandTimeout = 15;
         }
 
         public virtual DbSet<JCCarList> CarLists { get; set; }

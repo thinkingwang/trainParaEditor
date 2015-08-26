@@ -10,6 +10,7 @@ namespace CommonModel
         public ServerContext(string str)
             : base(str)
         {
+            Database.CommandTimeout = 15;
         }
 
         public virtual DbSet<Admin> Admins { get; set; }

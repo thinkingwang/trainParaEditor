@@ -13,6 +13,7 @@ namespace DCModel
             : base(conStr)
         {
             Configuration.ProxyCreationEnabled = false;
+            Database.CommandTimeout = 15;
         }
 
         public virtual DbSet<CarList> CarLists { get; set; }

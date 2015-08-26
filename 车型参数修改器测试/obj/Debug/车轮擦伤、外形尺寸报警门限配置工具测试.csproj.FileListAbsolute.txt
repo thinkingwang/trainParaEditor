@@ -29,3 +29,6 @@ E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\JCModel.p
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\zh-Hans\EntityFramework.resources.dll
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\zh-Hans\EntityFramework.SqlServer.resources.dll
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\综合配置器.exe
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Service.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\综合配置器.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Service.pdb

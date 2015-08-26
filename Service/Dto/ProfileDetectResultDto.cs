@@ -8,6 +8,7 @@ using System.Linq;
 using System.Windows.Forms;
 using CommonModel;
 using CommonModel.Common;
+using JCModel;
 
 namespace Service.Dto
 {
@@ -143,6 +144,65 @@ namespace Service.Dto
         }
 
         /// <summary>
+        /// 复制指定车厢的所有数据
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="carNo1"></param>
+        /// <param name="desTime"></param>
+        /// <param name="carNo2"></param>
+        /// <returns></returns>
+        public static void CopyCarNoProfileDetectResultDto(DateTime time, string carNo1, DateTime desTime)
+        {
+
+            var posDes =
+                ThrContext.Set<CarList>().FirstOrDefault(m => m.testDateTime.Equals(desTime) && m.carNo.Equals(carNo1));
+            if (posDes == null)
+            {
+                MessageBox.Show("目标检测车次没有该车厢号，如果要继续操作，请先进行车号补缺操作");
+                return;
+            }
+            var pos =
+                ThrContext.Set<CarList>().FirstOrDefault(m => m.testDateTime.Equals(time) && m.carNo.Equals(carNo1));
+            var sources = (from a in ThrContext.Set<ProfileDetectResult>()
+                where a.testDateTime.Equals(time) && (a.axleNo >= pos.posNo*4 && a.axleNo <= (pos.posNo*4 + 3))
+                orderby a.axleNo
+                orderby a.wheelNo
+                select a).ToList();
+            if (pos == null)
+            {
+                MessageBox.Show("CarList表没有源车型对应的数据");
+                return;
+            }
+            foreach (var profileDetectResult in sources)
+            {
+                var result = Dto.DeepCopy(profileDetectResult);
+                result.testDateTime = desTime;
+                result.axleNo = posDes.posNo*4 + result.axleNo%4;
+                if (Dto.serverType == "JC")
+                {
+                    var carDes = posDes as JCCarList;
+                    var carSou = posDes as JCCarList;
+                    if (carDes == null)
+                    {
+                        return;
+                    }
+                    if (!carDes.direction.Equals(carSou.direction))
+                    {
+                        result.wheelNo = Convert.ToByte(Math.Abs(result.wheelNo - 1));
+                        result.axleNo = posDes.posNo*4 + (3 - result.axleNo%4);
+                    }
+                }
+                ThrContext.Set<ProfileDetectResult>().AddOrUpdate(result);
+            }
+            //Nlogger.Trace("对操作对象（时刻作为主键）：" + time + "轮号为：" + axel + "，进行了特定项外形补缺操作，源时刻为：" + desTime + "轮号为：" + desaxel);
+
+            ThrContext.SaveChanges();
+            ThrContext.Profile(desTime);
+            ThrContext.Profile_LjCha(desTime);
+            MessageBox.Show(@"复制所选成功");
+        }
+
+        /// <summary>
         /// 外形补缺
         /// </summary>
         /// <param name="thisTimeText"></param>
@@ -209,6 +269,23 @@ namespace Service.Dto
             else
             {
                 MessageBox.Show(@"数据库不存在该项：" + lastTime);
+            }
+        }
+
+        [DisplayName(@"车厢号")]
+        public string carNo
+        {
+            get
+            {
+                var carlist =
+                    Dto.ThrContext.Set<CarList>()
+                        .FirstOrDefault(
+                            m => m.posNo == axleNo/4 && m.testDateTime.Equals(_profileDetectResult.testDateTime));
+                if (carlist == null)
+                {
+                    return "";
+                }
+                return carlist.carNo;
             }
         }
 

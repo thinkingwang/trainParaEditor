@@ -3,9 +3,9 @@ E:\Project\车型参数修改器\CommonModel\bin\Debug\CommonModel.dll
 E:\Project\车型参数修改器\CommonModel\bin\Debug\CommonModel.pdb
 E:\Project\车型参数修改器\CommonModel\bin\Debug\EntityFramework.dll
 E:\Project\车型参数修改器\CommonModel\bin\Debug\EntityFramework.SqlServer.dll
+E:\Project\车型参数修改器\CommonModel\bin\Debug\NLog.dll
 E:\Project\车型参数修改器\CommonModel\bin\Debug\EntityFramework.xml
 E:\Project\车型参数修改器\CommonModel\bin\Debug\EntityFramework.SqlServer.xml
+E:\Project\车型参数修改器\CommonModel\bin\Debug\NLog.xml
 E:\Project\车型参数修改器\CommonModel\obj\Debug\CommonModel.dll
 E:\Project\车型参数修改器\CommonModel\obj\Debug\CommonModel.pdb
-E:\Project\车型参数修改器\CommonModel\bin\Debug\NLog.dll
-E:\Project\车型参数修改器\CommonModel\bin\Debug\NLog.xml

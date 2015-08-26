@@ -25,7 +25,7 @@ namespace CommonModel
                 ParameterName = "@testTime",
                 Value = testTime
             };
-            return Database.SqlQuery<int>("exec [dbo].[Profile] @testTime", paras).First();
+            return Database.ExecuteSqlCommand("exec [dbo].[Profile] @testTime", paras);
         }
         public virtual int Profile_LjCha(DateTime testTime)
         {
