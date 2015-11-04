@@ -74,6 +74,5 @@ namespace CommonModel
         [Column(TypeName = "numeric")]
         public decimal? LwHd2_AVG { get; set; }
 
-        public virtual Detect Detect { get; set; }
     }
 }

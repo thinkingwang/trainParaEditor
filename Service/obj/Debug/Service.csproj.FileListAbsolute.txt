@@ -16,3 +16,5 @@ E:\Project\车型参数修改器\Service\bin\Debug\NLog.xml
 E:\Project\车型参数修改器\Service\obj\Debug\Service.csprojResolveAssemblyReference.cache
 E:\Project\车型参数修改器\Service\obj\Debug\Service.dll
 E:\Project\车型参数修改器\Service\obj\Debug\Service.pdb
+E:\Project\车型参数修改器\Service\bin\Debug\TCModel.dll
+E:\Project\车型参数修改器\Service\bin\Debug\TCModel.pdb

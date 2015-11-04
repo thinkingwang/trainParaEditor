@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using CommonModel;
+using DCModel;
 using JCModel;
 
 namespace Service.Dto
@@ -26,27 +27,21 @@ namespace Service.Dto
         /// <param name="data"></param>
         public static void CreateDataBase(ArrayList data)
         {
-            foreach (var thresholdse in (List<threshold>)data[0])
-            {
-                ThrContext.Set<threshold>().AddOrUpdate(thresholdse);
-            }
-            if (Dto.serverType.Equals("DC"))
-            {
-                CRH_wheelDto.CreateDataBase((List<CRH_wheel>)data[1]);
-                TrainTypeDto.CreateDataBase((List<TrainType>)data[2]);
-            }
-            else
-            {
-                EngineLibDto.CreateDataBase((List<EngineLib>)data[1]);
-                WheelPosDto.CreateDataBase((List<WheelPos>)data[2]);
-            }
-            if (!ThrContext.Set<ProfileAdjust>().Any())
-            {
-                ThrContext.Set<ProfileAdjust>().Add(new ProfileAdjust(){position = 0});
-                ThrContext.Set<ProfileAdjust>().Add(new ProfileAdjust(){position = 1});
-            }
-            ThrContext.SaveChanges();
-            
+                using (var context = new JCContext(Dto.connectionstring))
+                {
+                    foreach (var thresholdse in (List<threshold>) data[0])
+                    {
+                        context.Set<threshold>().AddOrUpdate(thresholdse);
+                    }
+                    EngineLibDto.CreateDataBase((List<EngineLib>) data[1],context);
+                    WheelPosDto.CreateDataBase((List<WheelPos>)data[2],context);
+                    if (!context.Set<ProfileAdjust>().Any())
+                    {
+                        context.Set<ProfileAdjust>().Add(new ProfileAdjust() { position = 0 });
+                        context.Set<ProfileAdjust>().Add(new ProfileAdjust() { position = 1 });
+                    }
+                    context.SaveChanges();
+                }
             Nlogger.Trace("导入外部数据，重写数据库数据");
         }
 
@@ -66,10 +61,9 @@ namespace Service.Dto
         /// <returns></returns>
         public static IEnumerable<string> GetThresholdsTypes()
         {
-            //获取所有车型
-            var trainTypes =
-                (from v in ThrContext.Set<threshold>() select v.trainType).Distinct();
-            return trainTypes;
+                //获取所有车型
+                var trainTypes =ThrContext.Database.SqlQuery<string>("select distinct trainType from thresholds");
+                return trainTypes;
         }
 
         /// <summary>
@@ -80,9 +74,9 @@ namespace Service.Dto
         public static IEnumerable<thresholdsDto> GetThresholds(string trainType)
         {
             var result = new List<thresholdsDto>();
-            var data = from v in ThrContext.Set<threshold>()
-                       where v.trainType == trainType
-                       select v;
+            IQueryable<threshold> data = from v in ThrContext.Set<threshold>()
+                where v.trainType == trainType
+                select v;
             foreach (var thresholdse in data)
             {
                 result.Add(new thresholdsDto(thresholdse));
@@ -96,17 +90,13 @@ namespace Service.Dto
         /// <param name="trainType"></param>
         public static void Delete(string trainType)
         {
-            if (serverType.Equals("DC"))
-            {
-                CRH_wheelDto.Delete(trainType);
-            }
-            else
+            if (ServerConfig.Type.Equals("JC"))
             {
                 WheelPosDto.Delete(trainType);
             }
             var data = from v in ThrContext.Set<threshold>()
-                       where v.trainType == trainType
-                       select v;
+                where v.trainType == trainType
+                select v;
             foreach (var thresholdse in data)
             {
                 ThrContext.Set<threshold>().Remove(thresholdse);
@@ -122,7 +112,7 @@ namespace Service.Dto
         /// <param name="name"></param>
         public static void NewThresholds(string trainType, string name)
         {
-            var item = DeepCopy(ThrContext.Set<threshold>().FirstOrDefault(m => m.trainType.Equals(trainType)));
+            var item = (ThrContext.Set<threshold>().FirstOrDefault(m => m.trainType.Equals(trainType))).Copy() as threshold;
             if (item == null)
             {
                 return;
@@ -155,13 +145,24 @@ namespace Service.Dto
         /// <param name="name"></param>
         public static void Copy(string trainType, string name)
         {
-            CRH_wheelDto.Copy(trainType, name);
+            if (ServerConfig.Type.Equals("JC"))
+            {
+                WheelPosDto.Copy(trainType, name);
+            }
+            else
+            {
+                CRH_wheelDto.Copy(trainType, name);
+            }
             var data = from v in ThrContext.Set<threshold>()
-                       where v.trainType == trainType
-                       select v;
+                where v.trainType == trainType
+                select v;
             foreach (var thresholdse in data)
             {
-                var holds = DeepCopy(thresholdse);
+                var holds = thresholdse.Copy() as threshold;
+                if (holds == null)
+                {
+                    continue;
+                }
                 holds.trainType = name;
                 ThrContext.Set<threshold>().Add(holds);
             }
@@ -175,11 +176,13 @@ namespace Service.Dto
             get { return _thresholds.trainType; }
             set
             {
-                Nlogger.Trace("编辑表thresholds的trainType字段，初始为：" + _thresholds.trainType + ",修改后为：" + value);
+                Nlogger.Trace("编辑表thresholds的trainType字段，车型为："+ trainType +",参数描述为：" + ParamName + "，初始为：" + _thresholds.trainType + ",修改后为：" + value);
                 _thresholds.trainType = value;
                 ThrContext.SaveChanges();
             }
         }
+
+
 
         [Category("车型与参数名"), Description("车型与参数名"), ReadOnly(true), DisplayName(@"参数描述")]
         public string ParamName
@@ -201,7 +204,7 @@ namespace Service.Dto
             get { return _thresholds.standard; }
             set
             {
-                Nlogger.Trace("编辑表thresholds的standard字段，初始为：" + _thresholds.standard + ",修改后为：" + value);
+                Nlogger.Trace("编辑表thresholds的standard字段，车型为："+ trainType +",参数描述为：" + ParamName + "，初始为：" + _thresholds.standard + ",修改后为：" + value);
                 _thresholds.standard = value;
                 if (_thresholds.up_level3 < standard)
                 {
@@ -244,7 +247,7 @@ namespace Service.Dto
             }
             set
             {
-                Nlogger.Trace("编辑表thresholds的up_level3字段，初始为：" + _thresholds.up_level3 + ",修改后为：" + value);
+                Nlogger.Trace("编辑表thresholds的up_level3字段，车型为："+ trainType +",参数描述为：" + ParamName + "，初始为：" + _thresholds.up_level3 + ",修改后为：" + value);
                 if (value.Equals("禁用"))
                 {
                     _thresholds.up_level3 = Convert.ToDecimal(2000);
@@ -285,7 +288,7 @@ namespace Service.Dto
             }
             set
             {
-                Nlogger.Trace("编辑表thresholds的up_level2字段，初始为：" + _thresholds.up_level2 + ",修改后为：" + value);
+                Nlogger.Trace("编辑表thresholds的up_level2字段，车型为："+ trainType +",参数描述为：" + ParamName + "，初始为：" + _thresholds.up_level2 + ",修改后为：" + value);
                 if (value.Equals("禁用"))
                 {
                     _thresholds.up_level2 = Convert.ToDecimal(2000);
@@ -345,7 +348,7 @@ namespace Service.Dto
             }
             set
             {
-                Nlogger.Trace("编辑表thresholds的up_level1字段，初始为：" + _thresholds.up_level1 + ",修改后为：" + value);
+                Nlogger.Trace("编辑表thresholds的up_level1字段，车型为："+ trainType +",参数描述为：" + ParamName + "，初始为：" + _thresholds.up_level1 + ",修改后为：" + value);
                 if (value.Equals("禁用"))
                 {
                     _thresholds.up_level1 = Convert.ToDecimal(2000);
@@ -387,7 +390,7 @@ namespace Service.Dto
             }
             set
             {
-                Nlogger.Trace("编辑表thresholds的low_level3字段，初始为：" + _thresholds.low_level3 + ",修改后为：" + value);
+                Nlogger.Trace("编辑表thresholds的low_level3字段，车型为："+ trainType +",参数描述为：" + ParamName + "，初始为：" + _thresholds.low_level3 + ",修改后为：" + value);
                 if (value.Equals("禁用"))
                 {
                     _thresholds.low_level3 = Convert.ToDecimal(-1000);
@@ -428,7 +431,7 @@ namespace Service.Dto
             }
             set
             {
-                Nlogger.Trace("编辑表thresholds的low_level2字段，初始为：" + _thresholds.low_level2 + ",修改后为：" + value);
+                Nlogger.Trace("编辑表thresholds的low_level2字段，车型为："+ trainType +",参数描述为：" + ParamName + "，初始为：" + _thresholds.low_level2 + ",修改后为：" + value);
                 if (value.Equals("禁用"))
                 {
                     _thresholds.low_level2 = Convert.ToDecimal(-1000);
@@ -470,7 +473,7 @@ namespace Service.Dto
             }
             set
             {
-                Nlogger.Trace("编辑表thresholds的low_level1字段，初始为：" + _thresholds.low_level1 + ",修改后为：" + value);
+                Nlogger.Trace("编辑表thresholds的low_level1字段，车型为："+ trainType +",参数描述为：" + ParamName + "，初始为：" + _thresholds.low_level1 + ",修改后为：" + value);
                 if (value.Equals("禁用"))
                 {
                     _thresholds.low_level1 = Convert.ToDecimal(-1000);
@@ -504,7 +507,7 @@ namespace Service.Dto
             get { return _thresholds.precision; }
             set
             {
-                Nlogger.Trace("编辑表thresholds的precision字段，初始为：" + _thresholds.precision + ",修改后为：" + value);
+                Nlogger.Trace("编辑表thresholds的precision字段，车型为："+ trainType +",参数描述为：" + ParamName + "，初始为：" + _thresholds.precision + ",修改后为：" + value);
                 _thresholds.precision = value;
                 SetDesc();
                 ThrContext.SaveChanges();
@@ -521,7 +524,6 @@ namespace Service.Dto
                 ThrContext.SaveChanges();
             }
         }
-
 
 
         private void SetDesc()

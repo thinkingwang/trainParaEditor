@@ -2,8 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace CommonModel
 {
@@ -12,12 +16,18 @@ namespace CommonModel
         protected ModelContext(string constr)
             : base(constr)
         {
+            var objectContext = ((IObjectContextAdapter)this).ObjectContext;
+            var mappingCollection = (StorageMappingItemCollection)objectContext.MetadataWorkspace.GetItemCollection(DataSpace.CSSpace);
+            mappingCollection.GenerateViews(new List<EdmSchemaError>());
 
         }
 
         public abstract IEnumerable<CarList> GetCarLists(DateTime time);
         public abstract void DeleteCarList(DateTime time,int index);
         public abstract void InsertCarList(DateTime time);
+        public abstract CarList GetCarList(Expression<Func<CarList, bool>> predicate);
+        public abstract void AddCarList(CarList carlist);
+        public abstract void RemoveCarList(CarList carlist);
         public virtual int Profile(DateTime testTime)
         {
             var paras = new SqlParameter()
@@ -26,6 +36,15 @@ namespace CommonModel
                 Value = testTime
             };
             return Database.ExecuteSqlCommand("exec [dbo].[Profile] @testTime", paras);
+        }
+        public virtual int Reanalysis(DateTime testTime)
+        {
+            var paras = new SqlParameter()
+            {
+                ParameterName = "@testTime",
+                Value = testTime
+            };
+            return Database.ExecuteSqlCommand("exec [dbo].[Reanalysis] @testTime", paras);
         }
         public virtual int Profile_LjCha(DateTime testTime)
         {

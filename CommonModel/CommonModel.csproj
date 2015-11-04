@@ -55,28 +55,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin.cs" />
     <Compile Include="CarList.cs" />
     <Compile Include="Common\SelectColumn.cs" />
     <Compile Include="Common\wheel.cs" />
     <Compile Include="CRH_wheel.cs" />
     <Compile Include="Detect.cs" />
-    <Compile Include="DataCenterContext.cs" />
-    <Compile Include="IPAddress.cs" />
-    <Compile Include="kfList.cs" />
+    <Compile Include="General.cs" />
     <Compile Include="ModelContext.cs" />
-    <Compile Include="opLog.cs" />
     <Compile Include="ProcData.cs" />
     <Compile Include="ProfileAdjust.cs" />
     <Compile Include="ProfileDetectResult.cs" />
     <Compile Include="ProfileDetectResult_real.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sequ.cs" />
-    <Compile Include="ServerContext.cs" />
     <Compile Include="threshold.cs" />
     <Compile Include="TrainType.cs" />
-    <Compile Include="UploadFailedData.cs" />
     <Compile Include="WhmsTime.cs" />
+    <Compile Include="ZoneConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

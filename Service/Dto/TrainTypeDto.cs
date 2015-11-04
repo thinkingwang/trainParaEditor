@@ -15,6 +15,7 @@ namespace Service.Dto
         private static BindingSource _source;
         private static DataGridView _dgv;
         private static BindingNavigator _bn;
+        private static object _tempValue;
         private TrainTypeDto(TrainType tt)
         {
             _trainType = tt;
@@ -31,14 +32,18 @@ namespace Service.Dto
             _dgv.DataSource = _source;
             _dgv.CellBeginEdit += _dgv_CellBeginEdit;
             _dgv.CellEndEdit += _dgv_CellEndEdit;
+            _dgv.CellValueChanged += _dgv_CellValueChanged;
         }
 
+        static void _dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var column = _dgv.Columns[e.ColumnIndex];
+            Nlogger.Trace("编辑表TrainType的字段：" + column.HeaderText + "，修改前为：" + _tempValue + "，修改为：" + _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+        }
 
         private static void _dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (_trainType == null ||
-                (!_dgv.Columns[e.ColumnIndex].Name.Equals("trainNoFrom") &&
-                 !_dgv.Columns[e.ColumnIndex].Name.Equals("trainNoTo")))
+            if (_trainType == null)
             {
                 return;
             }
@@ -47,31 +52,28 @@ namespace Service.Dto
             GetAll();
         }
 
-        static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            if (_dgv.Columns[e.ColumnIndex].Name.Equals("trainNoFrom") || _dgv.Columns[e.ColumnIndex].Name.Equals("trainNoTo"))
-            {
-                _trainType = ThrContext.Set<TrainType>().ToList().ElementAt(e.RowIndex);
-                ThrContext.Set<TrainType>().Remove(_trainType);
-                ThrContext.SaveChanges();
-            }
+            _tempValue = _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            _trainType = ThrContext.Set<TrainType>().ToList().ElementAt(e.RowIndex);
+            ThrContext.Set<TrainType>().Remove(_trainType);
+            ThrContext.SaveChanges();
         }
 
         public static IEnumerable<TrainType> GetAll()
         {
-            var data = from d in ThrContext.Set<TrainType>() select d;
+            var data = ThrContext.Database.SqlQuery<TrainType>("select * from TrainType"); ;
             _source.DataSource = data.ToList();
             return data.ToList();
         }
 
-        public static void CreateDataBase(IEnumerable<TrainType> data)
+        public static void CreateDataBase(IEnumerable<TrainType> data,ModelContext context)
         {
             foreach (var thresholdse in data)
             {
-                ThrContext.Set<TrainType>().AddOrUpdate(thresholdse);
+                context.Set<TrainType>().AddOrUpdate(thresholdse);
             }
-            ThrContext.SaveChanges();
-            _source.DataSource = GetAll();
+            context.SaveChanges();
         }
         public static void Delete(int index)
         {
@@ -82,7 +84,7 @@ namespace Service.Dto
         public static void NewTrainType()
         {
             var random = new Random();
-            ThrContext.Set<TrainType>().Add(new TrainType() { trainType1 = "CRH", format = "CRH", trainNoFrom = random.Next(0, 10000), trainNoTo = random.Next(0, 10000) });
+            ThrContext.Set<TrainType>().Add(new TrainType() { trainType = "CRH", format = "CRH", trainNoFrom = random.Next(0, 10000), trainNoTo = random.Next(0, 10000) });
             ThrContext.SaveChanges();
         }
        

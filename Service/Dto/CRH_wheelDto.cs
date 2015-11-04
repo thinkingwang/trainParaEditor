@@ -11,14 +11,14 @@ namespace Service.Dto
 {
     public class CRH_wheelDto : Dto
     {
-        private readonly CRH_wheel _crhWheel;
+        private static CRH_wheel _crhWheel;
         private static BindingSource _source;
         private static DataGridView _dgv;
         private static BindingNavigator _bn;
+        private static object _tempValue;
 
-        private CRH_wheelDto(CRH_wheel crh)
+        private CRH_wheelDto()
         {
-            _crhWheel = crh;
         }
 
         public static void SetDgv(DataGridView dgv,  BindingNavigator bn)
@@ -28,6 +28,32 @@ namespace Service.Dto
             _bn = bn;
             _dgv.DataSource = _source;
             _bn.BindingSource = _source;
+            _dgv.CellBeginEdit += _dgv_CellBeginEdit;
+            _dgv.CellValueChanged += _dgv_CellValueChanged;
+            _dgv.CellEndEdit += _dgv_CellEndEdit;
+        }
+
+        private static void _dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (_crhWheel == null)
+            {
+                return;
+            }
+            ThrContext.Set<CRH_wheel>().Add(_crhWheel);
+            ThrContext.SaveChanges();
+            GetAll();
+        }
+        static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            _tempValue = _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            _crhWheel = ThrContext.Set<CRH_wheel>().ToList().ElementAt(e.RowIndex);
+            ThrContext.Set<CRH_wheel>().Remove(_crhWheel);
+            ThrContext.SaveChanges();
+        }
+        static void _dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var column = _dgv.Columns[e.ColumnIndex];
+            Nlogger.Trace("编辑表CRH_wheel的字段：" + column.HeaderText + "，车型为：" + _dgv.Rows[e.RowIndex].Cells["trainType"].Value + ",修改前为：" + _tempValue + "，修改为：" + _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
         }
 
         public static IEnumerable<CRH_wheel> GetAll()
@@ -39,8 +65,7 @@ namespace Service.Dto
         public static IEnumerable<string> GetCrhWheelTypes()
         {
             //获取所有车型
-            var trainTypes =
-                (from v in ThrContext.Set<CRH_wheel>() select v.trainType).Distinct();
+            var trainTypes = ThrContext.Database.SqlQuery<string>("select distinct trainType from CRH_wheel");
             return trainTypes;
         }
 
@@ -92,7 +117,11 @@ namespace Service.Dto
             var item = ThrContext.Set<CRH_wheel>().Where(m => m.trainType.Equals(trainType)).OrderByDescending(m => m.axleNo).FirstOrDefault();
             if (item != null)
             {
-                var element = DeepCopy(item);
+                var element = item.Copy() as CRH_wheel;
+                if (element == null)
+                {
+                    return;
+                }
                 element.axleNo = (byte) (item.axleNo + 1);
                 element.wheelNo = 0;
                 ThrContext.Set<CRH_wheel>().Add(element);
@@ -115,21 +144,25 @@ namespace Service.Dto
                 select v;
             foreach (var crh in data)
             {
-                var holds = DeepCopy(crh);
+                var holds = crh.Copy() as CRH_wheel;
+                if (holds == null)
+                {
+                    continue;
+                }
                 holds.trainType = name;
                 ThrContext.Set<CRH_wheel>().Add(holds);
             }
             ThrContext.SaveChanges();
         }
 
-        public static void CreateDataBase(IEnumerable<CRH_wheel> data)
+        public static void CreateDataBase(IEnumerable<CRH_wheel> data,ModelContext context)
         {
             foreach (var thresholdse in data)
             {
-                ThrContext.Set<CRH_wheel>().AddOrUpdate(thresholdse);
+                context.Set<CRH_wheel>().AddOrUpdate(thresholdse);
             }
-            ThrContext.SaveChanges();
-            _source.DataSource = GetAll();
+            context.SaveChanges();
         }
     }
+
 }

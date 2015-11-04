@@ -26,6 +26,5 @@ namespace CommonModel
         [StringLength(50)]
         public string info { get; set; }
 
-        public virtual Detect Detect { get; set; }
     }
 }

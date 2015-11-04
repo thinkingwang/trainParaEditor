@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Windows.Forms;
 using CommonModel;
 
 namespace Service.Dto
@@ -23,6 +24,12 @@ namespace Service.Dto
                 ThrContext.SaveChanges();
                 Nlogger.Trace("对操作对象（时刻作为主键）：" + detect.testDateTime + "，进行了车组号编辑操作");
             }
+            var result = MessageBox.Show(@"是否要进行重新分析？", @"确认对话框", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            Dto.ThrContext.Reanalysis(source);
         }
 
         public static string GetEngNum(string time)

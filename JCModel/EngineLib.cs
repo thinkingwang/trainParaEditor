@@ -19,10 +19,6 @@ namespace JCModel
     public partial class EngineLib
     {
         private static readonly NLog.Logger Nlogger = NLog.LogManager.GetLogger("Modifer");
-        private string _name;
-        private decimal? _wheelSize;
-        private byte? _axleNum;
-        private string _id;
 
         public EngineLib()
         {
@@ -30,28 +26,13 @@ namespace JCModel
         }
 
         [Key]
+        [ReadOnly(true)]
         [DisplayName(@"序列号")]
-        public string id
-        {
-            get { return _id; }
-            set
-            {
-                Nlogger.Trace("编辑表EngineLib的id字段，初始为：" + _id + ",修改后为：" + value);
-                _id = value;
-            }
-        }
+        public string id { get; set; }
 
+        [ReadOnly(true)]
         [DisplayName(@"名称")]
-        public string name
-        {
-            get { return _name; }
-            set
-            {
-
-                Nlogger.Trace("编辑表EngineLib的name字段，初始为：" + _name + ",修改后为：" + value);
-                _name = value;
-            }
-        }
+        public string name { get; set; }
 
         [Browsable(false)]
         public string fullName { get; set; }
@@ -60,29 +41,15 @@ namespace JCModel
         [Browsable(false)]
         public Nullable<byte> typeId { get; set; }
 
+        [ReadOnly(true)]
         [DisplayName(@"轮径")]
-        public Nullable<decimal> wheelSize
-        {
-            get { return _wheelSize; }
-            set
-            {
-                Nlogger.Trace("编辑表EngineLib的wheelSize字段，初始为：" + _wheelSize + ",修改后为：" + value);
-                _wheelSize = value;
-            }
-        }
+        public Nullable<decimal> wheelSize { get; set; }
 
         [Browsable(false)]
         public Nullable<decimal> wheelSizeB { get; set; }
 
+        [ReadOnly(true)]
         [DisplayName(@"轴数")]
-        public Nullable<byte> axleNum
-        {
-            get { return _axleNum; }
-            set
-            {
-                Nlogger.Trace("编辑表EngineLib的axleNum字段，初始为：" + _axleNum + ",修改后为：" + value);
-                _axleNum = value;
-            }
-        }
+        public Nullable<byte> axleNum { get; set; }
     }
 }

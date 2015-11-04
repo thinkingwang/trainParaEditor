@@ -29,6 +29,5 @@ namespace CommonModel
         public byte? status4 { get; set; }
 
 
-        public virtual Detect Detect { get; set; }
     }
 }

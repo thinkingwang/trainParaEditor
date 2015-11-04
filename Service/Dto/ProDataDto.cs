@@ -20,10 +20,10 @@ namespace Service.Dto
         /// <param name="testDateTime"></param>
         public static void NewProData(DateTime testDateTime)
         {
-            var item = new ProcData() { CommitTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")), testDateTime = testDateTime, NeedProc = 1 };
+            var item = new ProcData() { CommitTime = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")), testDateTime = testDateTime, NeedProc = 1 };
             ThrContext.Set<ProcData>().Add(item);
             ThrContext.SaveChanges();
-            Nlogger.Trace("新建指定车型，指定时刻为：" + testDateTime);
+            Nlogger.Trace("重新分析探伤数据，目标时刻为：" + testDateTime);
         }
 
         public static int uphistory2(string testTime)

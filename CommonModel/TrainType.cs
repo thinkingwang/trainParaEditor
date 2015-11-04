@@ -13,7 +13,7 @@ namespace CommonModel
         [Column("trainType")]
         [Required]
         [StringLength(20)]
-        public string trainType1 { get; set; }
+        public string trainType { get; set; }
 
         [DisplayName(@"车号开始数字")]
         [Key]

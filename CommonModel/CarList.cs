@@ -39,7 +39,5 @@ namespace CommonModel
         [StringLength(20)]
         public string carNo2 { get; set; }
 
-        [Browsable(false)]
-        public virtual Detect Detect { get; set; }
     }
 }

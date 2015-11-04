@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
 using CommonModel;
 
 namespace JCModel
@@ -13,18 +15,15 @@ namespace JCModel
         public JCContext(string conStr)
             : base(conStr)
         {
-            Configuration.ProxyCreationEnabled = false;
-            Database.CommandTimeout = 15;
         }
 
         public virtual DbSet<JCCarList> CarLists { get; set; }
         public virtual DbSet<CRH_wheel> CRH_wheel { get; set; }
-        public virtual DbSet<Detect> Detects { get; set; }
         public virtual DbSet<ProcData> ProcDatas { get; set; }
+        public virtual DbSet<General> Generals { get; set; }
         public virtual DbSet<ProfileAdjust> ProfileAdjusts { get; set; }
         public virtual DbSet<ProfileDetectResult> ProfileDetectResults { get; set; }
         public virtual DbSet<ProfileDetectResult_real> ProfileDetectResult_real { get; set; }
-        public virtual DbSet<JCSequ> Sequs { get; set; }
         public virtual DbSet<threshold> thresholds { get; set; }
         public virtual DbSet<TrainType> TrainTypes { get; set; }
         public virtual DbSet<WhmsTime> WhmsTimes { get; set; }
@@ -35,6 +34,7 @@ namespace JCModel
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<CarList>();
             modelBuilder.Entity<JCCarList>()
                 .Property(e => e.carNo)
                 .IsUnicode(false);
@@ -297,7 +297,7 @@ namespace JCModel
                 .HasPrecision(5, 2);
 
             modelBuilder.Entity<TrainType>()
-                .Property(e => e.trainType1)
+                .Property(e => e.trainType)
                 .IsUnicode(false);
 
             modelBuilder.Entity<TrainType>()
@@ -335,6 +335,21 @@ namespace JCModel
                 carNew.posNo = Convert.ToByte(cars.ElementAt(cars.Count() - 1).posNo + 1);
             }
             CarLists.Add(carNew);
+        }
+
+        public override CarList GetCarList(Expression<Func<CarList, bool>> predicate)
+        {
+            return CarLists.FirstOrDefault(predicate);
+        }
+
+        public override void AddCarList(CarList carlist)
+        {
+            CarLists.AddOrUpdate(carlist as JCCarList);
+        }
+
+        public override void RemoveCarList(CarList carlist)
+        {
+            CarLists.Remove(carlist as JCCarList);
         }
     }
 }

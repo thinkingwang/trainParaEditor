@@ -15,7 +15,7 @@ namespace CommonModel
         [Key]
         [Column(Order = 1)]
         [StringLength(10)]
-        public string name { get; set; }
+        public virtual string name { get; set; }
 
         [Column(TypeName = "numeric")]
         public decimal? standard { get; set; }

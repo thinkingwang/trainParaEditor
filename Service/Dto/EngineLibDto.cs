@@ -1,5 +1,4 @@
-锘縰sing System.Collections.Generic;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,6 +13,7 @@ namespace Service.Dto
         private static BindingSource _source;
         private static DataGridView _dgv;
         private static BindingNavigator _bn;
+        private static object _tempValue;
         private EngineLibDto(EngineLib tt)
         {
             _engineLib = tt;
@@ -30,12 +30,18 @@ namespace Service.Dto
             _dgv.DataSource = _source;
             _dgv.CellBeginEdit += _dgv_CellBeginEdit;
             _dgv.CellEndEdit += _dgv_CellEndEdit;
+            _dgv.CellValueChanged += _dgv_CellValueChanged;
+        }
+
+        static void _dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            var column = _dgv.Columns[e.ColumnIndex];
+            Nlogger.Trace("编辑表EngineLib的字段：" + column.HeaderText + "，修改前为：" + _tempValue + "，修改为：" + _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
         }
 
         private static void _dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            if (_engineLib == null ||
-                !_dgv.Columns[e.ColumnIndex].Name.Equals("id") )
+            if (_engineLib == null)
             {
                 return;
             }
@@ -44,31 +50,28 @@ namespace Service.Dto
             GetAll();
         }
 
-        static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            if (_dgv.Columns[e.ColumnIndex].Name.Equals("id"))
-            {
-                _engineLib = ThrContext.Set<EngineLib>().ToList().ElementAt(e.RowIndex);
-                ThrContext.Set<EngineLib>().Remove(_engineLib);
-                ThrContext.SaveChanges();
-            }
+            _tempValue = _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            _engineLib = ThrContext.Set<EngineLib>().ToList().ElementAt(e.RowIndex);
+            ThrContext.Set<EngineLib>().Remove(_engineLib);
+            ThrContext.SaveChanges();
         }
 
         public static IEnumerable<EngineLib> GetAll()
         {
             var data = from d in ThrContext.Set<EngineLib>() select d;
             _source.DataSource = data.ToList();
-             return data.ToList();
+            return data.ToList();
         }
 
-        public static void CreateDataBase(IEnumerable<EngineLib> data)
+        public static void CreateDataBase(IEnumerable<EngineLib> data,ModelContext context)
         {
             foreach (var thresholdse in data)
             {
-                ThrContext.Set<EngineLib>().AddOrUpdate(thresholdse);
+                context.Set<EngineLib>().AddOrUpdate(thresholdse);
             }
-            ThrContext.SaveChanges();
-            _source.DataSource = GetAll();
+            context.SaveChanges();
         }
         public static void Delete(int index)
         {

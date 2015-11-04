@@ -155,14 +155,14 @@ namespace Service.Dto
         {
 
             var posDes =
-                ThrContext.Set<CarList>().FirstOrDefault(m => m.testDateTime.Equals(desTime) && m.carNo.Equals(carNo1));
+                ThrContext.GetCarList(m => m.testDateTime.Equals(desTime) && m.carNo.Equals(carNo1));
             if (posDes == null)
             {
                 MessageBox.Show("目标检测车次没有该车厢号，如果要继续操作，请先进行车号补缺操作");
                 return;
             }
             var pos =
-                ThrContext.Set<CarList>().FirstOrDefault(m => m.testDateTime.Equals(time) && m.carNo.Equals(carNo1));
+                ThrContext.GetCarList(m => m.testDateTime.Equals(time) && m.carNo.Equals(carNo1));
             var sources = (from a in ThrContext.Set<ProfileDetectResult>()
                 where a.testDateTime.Equals(time) && (a.axleNo >= pos.posNo*4 && a.axleNo <= (pos.posNo*4 + 3))
                 orderby a.axleNo
@@ -175,13 +175,17 @@ namespace Service.Dto
             }
             foreach (var profileDetectResult in sources)
             {
-                var result = Dto.DeepCopy(profileDetectResult);
+                var result = profileDetectResult.Copy() as ProfileDetectResult;
+                if (result == null)
+                {
+                    continue;
+                }
                 result.testDateTime = desTime;
                 result.axleNo = posDes.posNo*4 + result.axleNo%4;
-                if (Dto.serverType == "JC")
+                if (Dto.ServerConfig.Type != "DC")
                 {
                     var carDes = posDes as JCCarList;
-                    var carSou = posDes as JCCarList;
+                    var carSou = pos as JCCarList;
                     if (carDes == null)
                     {
                         return;
@@ -278,9 +282,8 @@ namespace Service.Dto
             get
             {
                 var carlist =
-                    Dto.ThrContext.Set<CarList>()
-                        .FirstOrDefault(
-                            m => m.posNo == axleNo/4 && m.testDateTime.Equals(_profileDetectResult.testDateTime));
+                    Dto.ThrContext.GetCarList(
+                        m => m.posNo == axleNo/4 && m.testDateTime.Equals(_profileDetectResult.testDateTime));
                 if (carlist == null)
                 {
                     return "";

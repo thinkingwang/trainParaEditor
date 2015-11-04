@@ -76,11 +76,13 @@
     <Compile Include="Dto\CRH_wheelDto.cs" />
     <Compile Include="Dto\DetectDto.cs" />
     <Compile Include="Dto\Dto.cs" />
+    <Compile Include="Dto\CRH_CarDto.cs" />
     <Compile Include="Dto\EngineLibDto.cs" />
     <Compile Include="Dto\ProDataDto.cs" />
     <Compile Include="Dto\ProfileAdjustDto.cs" />
     <Compile Include="Dto\ProfileDetectResultDto.cs" />
     <Compile Include="Dto\thresholdsDto.cs" />
+    <Compile Include="Dto\TCthresholdsDto.cs" />
     <Compile Include="Dto\TrainTypeDto.cs" />
     <Compile Include="Dto\WheelPosDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,6 +122,10 @@
     <ProjectReference Include="..\JCModel\JCModel.csproj">
       <Project>{13e0b51d-1b4e-435d-a6be-a88cf2a89041}</Project>
       <Name>JCModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TCModel\TCModel.csproj">
+      <Project>{c3d0f022-5fb0-44d7-a83e-d8e59d582205}</Project>
+      <Name>TCModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

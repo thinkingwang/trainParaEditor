@@ -21,8 +21,6 @@ namespace JCModel
     public partial class WheelPos
     {
         private static readonly NLog.Logger Nlogger = NLog.LogManager.GetLogger("Modifer");
-        private byte _posNo;
-        private string _value;
 
         [Key]
         [Column(Order = 0)]
@@ -32,25 +30,9 @@ namespace JCModel
         [Key]
         [Column(Order = 1)]
         [DisplayName(@"轮位")]
-        public byte posNo
-        {
-            get { return _posNo; }
-            set
-            {
-                Nlogger.Trace("编辑表WheelPos的posNo字段，初始为：" + posNo + ",修改后为：" + value);
-                _posNo = value;
-            }
-        }
+        public byte posNo{ get; set; }
 
         [DisplayName(@"描述")]
-        public string value
-        {
-            get { return _value; }
-            set
-            {
-                Nlogger.Trace("编辑表WheelPos的value字段，初始为：" + this.value + ",修改后为：" + value);
-                _value = value;
-            }
-        }
+        public string value{ get; set; }
     }
 }

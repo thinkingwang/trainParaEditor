@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using CommonModel;
+using CommonModel.Common;
 using DCModel;
 using JCModel;
 using NLog;
@@ -20,66 +23,89 @@ namespace Service.Dto
     {
         public static Logger Nlogger;
         public static ModelContext ThrContext;
-        public static readonly DataCenterContext CenterContext;
-        public static ServerContext ServerConfigContext;
         public static readonly Entities BwContext;
-        public static string ip = "127.0.0.1";
-        public static string serverType = "DC";
+        public static readonly ZoneConfig ServerConfig = new ZoneConfig();
         public static string serverConnnectioString;
         public static string connectionstring;
+        public static string CenterConnectionstring;
         public static XmlDocument Document { get; private set; }
-        public static AutoResetEvent AtEvent = new AutoResetEvent(false); 
+        public static AutoResetEvent AtEvent = new AutoResetEvent(false);
+        public static readonly List<ZoneConfig> ServerList = new List<ZoneConfig>(); 
+
         static Dto()
         {
+            ServerConfig.Type = "DC";
+            ServerConfig.Ip = "127.0.0.1";
+            ServerConfig.Name = "本地";
+            ServerConfig.FlawOrRawPath = @"D:\tycho\data";
+            ServerConfig.ProfilePath = @"D:\Tycho\外形数据";
+            ConfigNlog();
             if (File.Exists("config.xml"))
             {
                 Document = new XmlDocument();
                 Document.Load("config.xml");
+                var nodes = Document.SelectNodes("/config/server");
+                if (nodes != null)
+                {
+                    foreach (XmlElement node1 in nodes)
+                    {
+                        var config = new ZoneConfig
+                        {
+                            Name = node1.Attributes["name"].Value,
+                            Ip = node1.Attributes["ip"].Value,
+                            Type = node1.Attributes["type"].Value,
+                            FlawOrRawPath = node1.Attributes["flawOrRawPath"].Value,
+                            ProfilePath = node1.Attributes["profilePath"].Value
+                        };
+                        ServerList.Add(config);
+                    }
+                }
+
                 var node = Document.SelectSingleNode("/config/add[@key='thresholdsContext']/@value");
                 if (node != null)
                 {
-                    ip = node.Value;
+                    var ip = node.Value;
+                    var server = ServerList.FirstOrDefault(m => m.Ip.Equals(ip));
+                    if (server == null)
+                    {
+                        MessageBox.Show("手动配置服务器不在配置列表内，请配置后再重启程序");
+                        Application.Exit();
+                        return;
+                    }
+                    ServerConfig = server;
                 }
-                node = Document.SelectSingleNode("/config/add[@key='serverType']/@value");
-                if (node != null)
+                else
                 {
-                    serverType = node.Value;
+                    //获取本地的IP地址
+                    foreach (System.Net.IPAddress ipAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+                    {
+                        if (ipAddress.AddressFamily.ToString() == "InterNetwork")
+                        {
+                            var server = ServerList.FirstOrDefault(m => m.Ip.Equals(ipAddress.ToString()));
+                            if (server == null)
+                            {
+                                continue;
+                            }
+                            ServerConfig = server;
+                        }
+                    }
                 }
             }
-            serverConnnectioString =
-                "Data Source=192.192.1.15;Initial Catalog=TYCHO_KF;Persist Security Info=True;User ID=sa;Password=sa123;multipleactiveresultsets=true";
-
             connectionstring = string.Format(
                 "data source={0};initial catalog=tycho_kc;persist security info=True;user id=sa;password=sa123;MultipleActiveResultSets=True;App=EntityFramework",
-                ip);
-            CenterContext = new DataCenterContext(string.Format("Data Source={0};Initial Catalog=aspnet-DeviceMonitor-20141104153122;Persist Security Info=True;User ID=sa;Password=sa123;multipleactiveresultsets=true", ip));
+                ServerConfig.Ip);
+            CenterConnectionstring =
+                string.Format(
+                    "Data Source={0};Initial Catalog=aspnet-DeviceMonitor-20141104153122;Persist Security Info=True;User ID=sa;Password=sa123;multipleactiveresultsets=true",
+                    ServerConfig.Ip);
             string connectStringBase = string.Format(
                 "metadata=res://*/BaseWhpr.csdl|res://*/BaseWhpr.ssdl|res://*/BaseWhpr.msl;provider=System.Data.SqlClient;provider=System.Data.SqlClient;provider connection string=\"data source={0};initial catalog=BaseWhprP807;persist security info=True;user id=sa;password=sa123;multipleactiveresultsets=True;App=EntityFramework\"",
-                ip);
+                ServerConfig.Ip);
             //Context = new DCContext(ip);
             BwContext = new Entities(connectStringBase);
-            ConfigNlog();
         }
-        /// <summary>
-        /// 深拷贝功能函数
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        protected static T DeepCopy<T>(T obj)
-        {
-            //如果是字符串或值类型则直接返回
-            if (obj is string || obj.GetType().IsValueType) return obj;
 
-            object retval = Activator.CreateInstance(obj.GetType());
-            FieldInfo[] fields = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-            foreach (FieldInfo field in fields)
-            {
-                try { field.SetValue(retval, DeepCopy(field.GetValue(obj))); }
-                catch { }
-            }
-            return (T)retval;
-        }
+
 
         private static void ConfigNlog()
         {
@@ -89,7 +115,7 @@ namespace Service.Dto
             FileTarget fileTarget = new FileTarget();
             config.AddTarget("file", fileTarget);
             // Step 3. Set target properties 
-            fileTarget.FileName = "${basedir}/logs/${shortdate}.log";
+            fileTarget.FileName = @"D:\Tycho_log\${date:format=yyyy}\${date:format=yyyyMMdd}\参数修改器\${shortdate}.log";
             fileTarget.Layout = "${longdate} ${message}";
             // Step 4. Define rules 
             LoggingRule rule2 = new LoggingRule("*", LogLevel.Trace, fileTarget);
@@ -98,6 +124,68 @@ namespace Service.Dto
             LogManager.Configuration = config;
             // Example usage 
             Nlogger = LogManager.GetLogger("Example");
+        }
+
+
+    }
+    public static class DeepCopyHelper
+    {
+        public static object Copy(this object obj)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+            Object targetDeepCopyObj;
+            Type targetType = obj.GetType();
+            //值类型  
+            if (targetType.IsValueType == true)
+            {
+                targetDeepCopyObj = obj;
+            }
+            //引用类型   
+            else
+            {
+                targetDeepCopyObj = System.Activator.CreateInstance(targetType);   //创建引用对象   
+                System.Reflection.MemberInfo[] memberCollection = obj.GetType().GetMembers();
+
+                foreach (System.Reflection.MemberInfo member in memberCollection)
+                {
+                    if (member.MemberType == System.Reflection.MemberTypes.Field)
+                    {
+                        System.Reflection.FieldInfo field = (System.Reflection.FieldInfo)member;
+                        Object fieldValue = field.GetValue(obj);
+                        if (fieldValue is ICloneable)
+                        {
+                            field.SetValue(targetDeepCopyObj, (fieldValue as ICloneable).Clone());
+                        }
+                        else
+                        {
+                            field.SetValue(targetDeepCopyObj, Copy(fieldValue));
+                        }
+
+                    }
+                    else if (member.MemberType == System.Reflection.MemberTypes.Property)
+                    {
+                        System.Reflection.PropertyInfo myProperty = (System.Reflection.PropertyInfo)member;
+                        MethodInfo info = myProperty.GetSetMethod(false);
+                        if (info != null)
+                        {
+                            object propertyValue = myProperty.GetValue(obj, null);
+                            if (propertyValue is ICloneable)
+                            {
+                                myProperty.SetValue(targetDeepCopyObj, (propertyValue as ICloneable).Clone(), null);
+                            }
+                            else
+                            {
+                                myProperty.SetValue(targetDeepCopyObj, Copy(propertyValue), null);
+                            }
+                        }
+
+                    }
+                }
+            }
+            return targetDeepCopyObj;
         }
     }
 }

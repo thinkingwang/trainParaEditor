@@ -81,6 +81,5 @@ namespace CommonModel
 
         public byte? Level_LjCha_Bz { get; set; }
 
-        public virtual Detect Detect { get; set; }
     }
 }
