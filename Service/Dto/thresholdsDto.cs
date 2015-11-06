@@ -27,21 +27,21 @@ namespace Service.Dto
         /// <param name="data"></param>
         public static void CreateDataBase(ArrayList data)
         {
-                using (var context = new JCContext(Dto.connectionstring))
+            using (var context = new JCContext(Dto.connectionstring))
+            {
+                foreach (var thresholdse in (List<threshold>) data[0])
                 {
-                    foreach (var thresholdse in (List<threshold>) data[0])
-                    {
-                        context.Set<threshold>().AddOrUpdate(thresholdse);
-                    }
-                    EngineLibDto.CreateDataBase((List<EngineLib>) data[1],context);
-                    WheelPosDto.CreateDataBase((List<WheelPos>)data[2],context);
-                    if (!context.Set<ProfileAdjust>().Any())
-                    {
-                        context.Set<ProfileAdjust>().Add(new ProfileAdjust() { position = 0 });
-                        context.Set<ProfileAdjust>().Add(new ProfileAdjust() { position = 1 });
-                    }
-                    context.SaveChanges();
+                    context.Set<threshold>().AddOrUpdate(thresholdse);
                 }
+                EngineLibDto.CreateDataBase((List<EngineLib>) data[1], context);
+                WheelPosDto.CreateDataBase((List<WheelPos>) data[2], context);
+                if (!context.Set<ProfileAdjust>().Any())
+                {
+                    context.Set<ProfileAdjust>().Add(new ProfileAdjust() {position = 0});
+                    context.Set<ProfileAdjust>().Add(new ProfileAdjust() {position = 1});
+                }
+                context.SaveChanges();
+            }
             Nlogger.Trace("导入外部数据，重写数据库数据");
         }
 

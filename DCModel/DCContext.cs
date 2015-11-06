@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Mapping;
+using System.Data.Entity.Core.Metadata.Edm;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using CommonModel;
+
 namespace DCModel
 {
     public partial class DCContext : ModelContext
@@ -26,19 +30,9 @@ namespace DCModel
         public virtual DbSet<threshold> thresholds { get; set; }
         public virtual DbSet<TrainType> TrainTypes { get; set; }
         public virtual DbSet<WhmsTime> WhmsTimes { get; set; }
-        public void FixEfProviderServicesProblem()
-        {
-            //The Entity Framework provider type 'System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer'  
-            //for the 'System.Data.SqlClient' ADO.NET provider could not be loaded.   
-            //Make sure the provider assembly is available to the running application.   
-            //See http://go.microsoft.com/fwlink/?LinkId=260882 for more information.  
-
-            var instance = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
-        }  
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<CarList>()
                 .Property(e => e.carNo)
                 .IsUnicode(false);

@@ -30,7 +30,7 @@ namespace Service.Dto
         public static string CenterConnectionstring;
         public static XmlDocument Document { get; private set; }
         public static AutoResetEvent AtEvent = new AutoResetEvent(false);
-        public static readonly List<ZoneConfig> ServerList = new List<ZoneConfig>(); 
+        public static readonly List<ZoneConfig> ServerList = new List<ZoneConfig>();
 
         static Dto()
         {
@@ -40,55 +40,73 @@ namespace Service.Dto
             ServerConfig.FlawOrRawPath = @"D:\tycho\data";
             ServerConfig.ProfilePath = @"D:\Tycho\外形数据";
             ConfigNlog();
+            Document = new XmlDocument();
             if (File.Exists("config.xml"))
             {
-                Document = new XmlDocument();
                 Document.Load("config.xml");
-                var nodes = Document.SelectNodes("/config/server");
-                if (nodes != null)
+            }
+            else
+            {
+                //如果不存在 则从嵌入资源内读取 BlockSet.xml 
+                Assembly asm = Assembly.GetExecutingAssembly();//读取嵌入式资源
+                Stream sm = asm.GetManifestResourceStream("Service.config.xml");
+                if (sm != null)
                 {
-                    foreach (XmlElement node1 in nodes)
-                    {
-                        var config = new ZoneConfig
-                        {
-                            Name = node1.Attributes["name"].Value,
-                            Ip = node1.Attributes["ip"].Value,
-                            Type = node1.Attributes["type"].Value,
-                            FlawOrRawPath = node1.Attributes["flawOrRawPath"].Value,
-                            ProfilePath = node1.Attributes["profilePath"].Value
-                        };
-                        ServerList.Add(config);
-                    }
+                    Document.Load(sm);
                 }
+            }
+            var nodes = Document.SelectNodes("/config/server");
+            if (nodes != null)
+            {
+                foreach (XmlElement node1 in nodes)
+                {
+                    var config = new ZoneConfig
+                    {
+                        Name = node1.Attributes["name"].Value,
+                        Ip = node1.Attributes["ip"].Value,
+                        Type = node1.Attributes["type"].Value,
+                        FlawOrRawPath = node1.Attributes["flawOrRawPath"].Value,
+                        ProfilePath = node1.Attributes["profilePath"].Value
+                    };
+                    ServerList.Add(config);
+                }
+            }
 
-                var node = Document.SelectSingleNode("/config/add[@key='thresholdsContext']/@value");
-                if (node != null)
+            var node = Document.SelectSingleNode("/config/add[@key='thresholdsContext']/@value");
+            if (node != null)
+            {
+                var ip = node.Value;
+                var server = ServerList.FirstOrDefault(m => m.Ip.Equals(ip));
+                if (server == null)
                 {
-                    var ip = node.Value;
-                    var server = ServerList.FirstOrDefault(m => m.Ip.Equals(ip));
-                    if (server == null)
-                    {
-                        MessageBox.Show("手动配置服务器不在配置列表内，请配置后再重启程序");
-                        Application.Exit();
-                        return;
-                    }
-                    ServerConfig = server;
+                    MessageBox.Show("手动配置服务器不在配置列表内，请配置后再重启程序");
+                    Application.Exit();
+                    return;
                 }
-                else
+                ServerConfig = server;
+            }
+            else
+            {
+                ZoneConfig server = null;
+                //获取本地的IP地址
+                foreach (System.Net.IPAddress ipAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
                 {
-                    //获取本地的IP地址
-                    foreach (System.Net.IPAddress ipAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+                    if (ipAddress.AddressFamily.ToString() == "InterNetwork")
                     {
-                        if (ipAddress.AddressFamily.ToString() == "InterNetwork")
+                        server = ServerList.FirstOrDefault(m => m.Ip.Equals(ipAddress.ToString()));
+                        if (server != null)
                         {
-                            var server = ServerList.FirstOrDefault(m => m.Ip.Equals(ipAddress.ToString()));
-                            if (server == null)
-                            {
-                                continue;
-                            }
-                            ServerConfig = server;
+                            break;
                         }
                     }
+                }
+                if (server == null)
+                {
+                    server = ServerList.FirstOrDefault(m => m.Ip.Equals("127.0.0.1"));
+                }
+                if (server != null)
+                {
+                    ServerConfig = server;
                 }
             }
             connectionstring = string.Format(
