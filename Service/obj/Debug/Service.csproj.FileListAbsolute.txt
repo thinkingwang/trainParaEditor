@@ -4,14 +4,12 @@ E:\Project\车型参数修改器\Service\bin\Debug\Service.pdb
 E:\Project\车型参数修改器\Service\bin\Debug\CommonModel.dll
 E:\Project\车型参数修改器\Service\bin\Debug\DCModel.dll
 E:\Project\车型参数修改器\Service\bin\Debug\EntityFramework.dll
-E:\Project\车型参数修改器\Service\bin\Debug\EntityFramework.SqlServer.dll
 E:\Project\车型参数修改器\Service\bin\Debug\JCModel.dll
 E:\Project\车型参数修改器\Service\bin\Debug\NLog.dll
 E:\Project\车型参数修改器\Service\bin\Debug\CommonModel.pdb
 E:\Project\车型参数修改器\Service\bin\Debug\DCModel.pdb
 E:\Project\车型参数修改器\Service\bin\Debug\JCModel.pdb
 E:\Project\车型参数修改器\Service\bin\Debug\EntityFramework.xml
-E:\Project\车型参数修改器\Service\bin\Debug\EntityFramework.SqlServer.xml
 E:\Project\车型参数修改器\Service\bin\Debug\NLog.xml
 E:\Project\车型参数修改器\Service\obj\Debug\Service.csprojResolveAssemblyReference.cache
 E:\Project\车型参数修改器\Service\obj\Debug\Service.dll

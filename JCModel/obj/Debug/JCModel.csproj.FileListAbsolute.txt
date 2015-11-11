@@ -3,11 +3,9 @@ E:\Project\车型参数修改器\JCModel\bin\Debug\JCModel.dll
 E:\Project\车型参数修改器\JCModel\bin\Debug\JCModel.pdb
 E:\Project\车型参数修改器\JCModel\bin\Debug\CommonModel.dll
 E:\Project\车型参数修改器\JCModel\bin\Debug\EntityFramework.dll
-E:\Project\车型参数修改器\JCModel\bin\Debug\EntityFramework.SqlServer.dll
 E:\Project\车型参数修改器\JCModel\bin\Debug\NLog.dll
 E:\Project\车型参数修改器\JCModel\bin\Debug\CommonModel.pdb
 E:\Project\车型参数修改器\JCModel\bin\Debug\EntityFramework.xml
-E:\Project\车型参数修改器\JCModel\bin\Debug\EntityFramework.SqlServer.xml
 E:\Project\车型参数修改器\JCModel\bin\Debug\NLog.xml
 E:\Project\车型参数修改器\JCModel\obj\Debug\JCModel.csprojResolveAssemblyReference.cache
 E:\Project\车型参数修改器\JCModel\obj\Debug\JCModel.dll

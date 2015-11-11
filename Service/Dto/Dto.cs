@@ -23,7 +23,13 @@ namespace Service.Dto
     {
         public static Logger Nlogger;
         public static ModelContext ThrContext;
-        public static readonly Entities BwContext;
+
+        protected static Entities BwContext
+        {
+            get { return _bwContext ?? (_bwContext = new Entities(connectStringBase)); }
+        }
+
+        private static string connectStringBase;
         public static readonly ZoneConfig ServerConfig = new ZoneConfig();
         public static string serverConnnectioString;
         public static string connectionstring;
@@ -31,29 +37,23 @@ namespace Service.Dto
         public static XmlDocument Document { get; private set; }
         public static AutoResetEvent AtEvent = new AutoResetEvent(false);
         public static readonly List<ZoneConfig> ServerList = new List<ZoneConfig>();
+        private static Entities _bwContext;
 
         static Dto()
         {
-            ServerConfig.Type = "DC";
+            ServerConfig.Type = "JC";
             ServerConfig.Ip = "127.0.0.1";
             ServerConfig.Name = "本地";
             ServerConfig.FlawOrRawPath = @"D:\tycho\data";
             ServerConfig.ProfilePath = @"D:\Tycho\外形数据";
             ConfigNlog();
             Document = new XmlDocument();
-            if (File.Exists("config.xml"))
+            //如果不存在 则从嵌入资源内读取 BlockSet.xml 
+            Assembly asm = Assembly.GetExecutingAssembly(); //读取嵌入式资源
+            Stream sm = asm.GetManifestResourceStream("Service.config.xml");
+            if (sm != null)
             {
-                Document.Load("config.xml");
-            }
-            else
-            {
-                //如果不存在 则从嵌入资源内读取 BlockSet.xml 
-                Assembly asm = Assembly.GetExecutingAssembly();//读取嵌入式资源
-                Stream sm = asm.GetManifestResourceStream("Service.config.xml");
-                if (sm != null)
-                {
-                    Document.Load(sm);
-                }
+                Document.Load(sm);
             }
             var nodes = Document.SelectNodes("/config/server");
             if (nodes != null)
@@ -72,18 +72,22 @@ namespace Service.Dto
                 }
             }
 
-            var node = Document.SelectSingleNode("/config/add[@key='thresholdsContext']/@value");
-            if (node != null)
+            if (File.Exists("config.xml"))
             {
-                var ip = node.Value;
-                var server = ServerList.FirstOrDefault(m => m.Ip.Equals(ip));
-                if (server == null)
+                Document.Load("config.xml");
+            var node = Document.SelectSingleNode("/config/server");
+                if (node != null)
                 {
-                    MessageBox.Show("手动配置服务器不在配置列表内，请配置后再重启程序");
-                    Application.Exit();
-                    return;
+                    var config = new ZoneConfig
+                    {
+                        Name = node.Attributes["name"].Value,
+                        Ip = node.Attributes["ip"].Value,
+                        Type = node.Attributes["type"].Value,
+                        FlawOrRawPath = node.Attributes["flawOrRawPath"].Value,
+                        ProfilePath = node.Attributes["profilePath"].Value
+                    };
+                    ServerConfig = config;
                 }
-                ServerConfig = server;
             }
             else
             {
@@ -116,11 +120,10 @@ namespace Service.Dto
                 string.Format(
                     "Data Source={0};Initial Catalog=aspnet-DeviceMonitor-20141104153122;Persist Security Info=True;User ID=sa;Password=sa123;multipleactiveresultsets=true",
                     ServerConfig.Ip);
-            string connectStringBase = string.Format(
+            connectStringBase = string.Format(
                 "metadata=res://*/BaseWhpr.csdl|res://*/BaseWhpr.ssdl|res://*/BaseWhpr.msl;provider=System.Data.SqlClient;provider=System.Data.SqlClient;provider connection string=\"data source={0};initial catalog=BaseWhprP807;persist security info=True;user id=sa;password=sa123;multipleactiveresultsets=True;App=EntityFramework\"",
                 ServerConfig.Ip);
             //Context = new DCContext(ip);
-            BwContext = new Entities(connectStringBase);
         }
 
 

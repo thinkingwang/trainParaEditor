@@ -112,19 +112,9 @@ namespace Service.Dto
             var des = DateTime.Parse(desText);
             var detectSource = ThrContext.Set<Detect>().
                 FirstOrDefault(m => m.testDateTime.Equals(source));
-            var detectOrg = ThrContext.Set<Detect>().
-                FirstOrDefault(m => m.testDateTime.Equals(des));
-            if (detectSource == null||detectOrg == null)
+            if (detectSource == null)
             {
                 return;
-            }
-            if (!detectOrg.engNum.Equals(detectSource.engNum))
-            {
-                var result = MessageBox.Show(@"复制到目标检测时间车型与源检测时间车型不一致，是否继续复制,源时刻：" + source + ",目标时刻：" + des, @"确认对话框", MessageBoxButtons.YesNo);
-                if (result == DialogResult.No)
-                {
-                    return;
-                }
             }
             var carSources = ThrContext.GetCarLists(source); ;
             var cardeses = ThrContext.GetCarLists(des); ;
@@ -133,35 +123,37 @@ namespace Service.Dto
                 ThrContext.RemoveCarList(carList);
             }
             var detect = ThrContext.Set<Detect>().FirstOrDefault(m => m.testDateTime.Equals(des));
-            if (overWriteProfile || overWriteTanShang || overWriteCaShang || detect == null)
+            if (detect == null)
             {
-                if (detect != null && overWriteProfile && overWriteTanShang && overWriteCaShang)
-                {
-                    ThrContext.Set<Detect>().Remove(detect);
-                    ThrContext.SaveChanges();
-                }
-                var detectDes = detectSource.Copy() as Detect;
-                if (detectDes == null)
+                detect = detectSource.Copy() as Detect;
+                if (detect == null)
                 {
                     return;
                 }
-                detectDes.testDateTime = des;
-                detectDes.outDateTime = des;
-                ThrContext.Set<Detect>().AddOrUpdate(detectDes);
-                ThrContext.SaveChanges();
-                if (overWriteTanShang || detect == null)
+                detect.testDateTime = des;
+                detect.outDateTime = des;
+                TanRepair(sourceText, desText);
+                CaRepair(sourceText, desText);
+                ProfileDetectResultDto.Repair(desText, sourceText);
+            }
+            else
+            {
+                detect.engNum = detectSource.engNum;
+                if (overWriteTanShang)
                 {
                     TanRepair(sourceText, desText);
                 }
-                if (overWriteCaShang || detect == null)
+                if (overWriteCaShang)
                 {
                     CaRepair(sourceText, desText);
                 }
-                if (overWriteProfile || detect == null)
+                if (overWriteProfile)
                 {
                     ProfileDetectResultDto.Repair(desText, sourceText);
                 }
             }
+            ThrContext.Set<Detect>().AddOrUpdate(detect);
+            ThrContext.SaveChanges();
 
             foreach (var carSource in carSources)
             {
@@ -175,6 +167,12 @@ namespace Service.Dto
                 ThrContext.AddCarList(car);
             }
             ThrContext.SaveChanges();
+            var result = MessageBox.Show(@"是否自动分析探伤和外形", @"确认对话框", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            ThrContext.Reanalysis(des);
         }
 
         /// <summary>

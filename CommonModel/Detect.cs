@@ -112,6 +112,5 @@ namespace CommonModel
 
         public virtual ICollection<Sequ> Sequs { get; set; }
 
-        public virtual WhmsTime WhmsTime { get; set; }
     }
 }

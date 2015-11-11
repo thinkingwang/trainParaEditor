@@ -9,7 +9,6 @@ namespace CommonModel
     public partial class CarList
     {
         private static readonly NLog.Logger Nlogger = NLog.LogManager.GetLogger("Modifer");
-        private string _carNo;
 
         [DisplayName("检测时间"), ReadOnly(true)]
         [Key]
@@ -25,15 +24,7 @@ namespace CommonModel
         [Key]
         [Column(Order = 2)]
         [StringLength(20)]
-        public string carNo
-        {
-            get { return _carNo; }
-            set
-            {
-                Nlogger.Trace("编辑车厢号，初始为：" + carNo + ",修改后为：" + value);
-                _carNo = value;
-            }
-        }
+        public string carNo { get; set; }
 
         [Browsable(false)]
         [StringLength(20)]

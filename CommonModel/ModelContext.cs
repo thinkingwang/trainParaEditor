@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Core.Mapping;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,10 +14,6 @@ namespace CommonModel
         protected ModelContext(string constr)
             : base(constr)
         {
-            var objectContext = ((IObjectContextAdapter)this).ObjectContext;
-            var mappingCollection = (StorageMappingItemCollection)objectContext.MetadataWorkspace.GetItemCollection(DataSpace.CSSpace);
-            mappingCollection.GenerateViews(new List<EdmSchemaError>());
-
         }
 
         public abstract IEnumerable<CarList> GetCarLists(DateTime time);

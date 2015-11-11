@@ -10,7 +10,6 @@ E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\nunit.fra
 E:\Project\车型参数修改器\车型参数修改器测试\obj\Debug\车轮擦伤、外形尺寸报警门限配置工具测试.csprojResolveAssemblyReference.cache
 E:\Project\车型参数修改器\车型参数修改器测试\obj\Debug\车型参数修改器测试.dll
 E:\Project\车型参数修改器\车型参数修改器测试\obj\Debug\车型参数修改器测试.pdb
-E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\config.xml
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\EntityFramework.dll
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\EntityFramework.SqlServer.dll
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\EntityFramework.xml

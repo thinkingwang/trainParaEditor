@@ -13,6 +13,5 @@ namespace CommonModel
         [Column("whmsTime")]
         public DateTime whmsTime1 { get; set; }
 
-        public virtual Detect Detect { get; set; }
     }
 }

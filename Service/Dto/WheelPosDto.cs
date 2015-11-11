@@ -17,6 +17,7 @@ namespace Service.Dto
         private static DataGridView _dgv;
         private static BindingNavigator _bn;
         private static object _tempValue;
+        private static byte _tempPos;
          private WheelPosDto(WheelPos tt)
         {
             _wheelPos = tt;
@@ -42,9 +43,11 @@ namespace Service.Dto
         }
          private static void _dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
          {
-             if (_wheelPos == null )
+             var temp = ThrContext.Set<WheelPos>().FirstOrDefault(m => m.posNo == _wheelPos.posNo);
+             if (temp != null && _tempPos != _wheelPos.posNo)
              {
-                 return;
+                 _wheelPos.posNo = _tempPos;
+                 MessageBox.Show("修改到目标轮位失败，原因是目标轮位已存在");
              }
              ThrContext.Set<WheelPos>().Add(_wheelPos);
              ThrContext.SaveChanges();
@@ -52,9 +55,11 @@ namespace Service.Dto
          }
 
         private static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-         {
-             _tempValue = _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            _wheelPos = ThrContext.Set<WheelPos>().ToList().ElementAt(e.RowIndex);
+        {
+            var trainType = _dgv.Rows[e.RowIndex].Cells["trainType"].Value.ToString();
+            _tempPos = Convert.ToByte(_dgv.Rows[e.RowIndex].Cells["posNo"].Value);
+            _tempValue = _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+            _wheelPos = ThrContext.Set<WheelPos>().FirstOrDefault(a => a.trainType.Equals(trainType) && a.posNo == _tempPos);
             ThrContext.Set<WheelPos>().Remove(_wheelPos);
             ThrContext.SaveChanges();
         }
