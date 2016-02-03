@@ -102,15 +102,15 @@ namespace CommonModel
 
         public short? videoScratchNum { get; set; }
 
-        public virtual ICollection<CarList> CarLists { get; set; }
+        public  ICollection<CarList> CarLists { get; set; }
 
-        public virtual ICollection<ProcData> ProcDatas { get; set; }
+        public  ICollection<ProcData> ProcDatas { get; set; }
 
-        public virtual ICollection<ProfileDetectResult> ProfileDetectResults { get; set; }
+        public  ICollection<ProfileDetectResult> ProfileDetectResults { get; set; }
 
-        public virtual ICollection<ProfileDetectResult_real> ProfileDetectResult_real { get; set; }
+        public  ICollection<ProfileDetectResult_real> ProfileDetectResult_real { get; set; }
 
-        public virtual ICollection<Sequ> Sequs { get; set; }
+        public  ICollection<Sequ> Sequs { get; set; }
 
     }
 }

@@ -137,9 +137,10 @@ namespace Service.Dto
                         break;
                 }
             }
+            ThrContext.Set<ProfileDetectResult>().AddOrUpdate(des);
             ThrContext.SaveChanges();
-            ThrContext.Profile(desTime);
             ThrContext.Profile_LjCha(desTime);
+            ThrContext.Profile(desTime);
             Nlogger.Trace("对操作对象（时刻作为主键）：" + time + "轮号为：" + axel + "，进行了特定项外形补缺操作，源时刻为：" + desTime + "轮号为：" + desaxel);
         }
 
@@ -201,8 +202,8 @@ namespace Service.Dto
             //Nlogger.Trace("对操作对象（时刻作为主键）：" + time + "轮号为：" + axel + "，进行了特定项外形补缺操作，源时刻为：" + desTime + "轮号为：" + desaxel);
 
             ThrContext.SaveChanges();
-            ThrContext.Profile(desTime);
             ThrContext.Profile_LjCha(desTime);
+            ThrContext.Profile(desTime);
             MessageBox.Show(@"复制所选成功");
         }
 
@@ -239,12 +240,6 @@ namespace Service.Dto
             if (ThrContext.Set<ProfileDetectResult>().FirstOrDefault(m => m.testDateTime.Equals(lastTime)) != null)
             {
                 var time = ThrContext.Set<WhmsTime>().FirstOrDefault(m => m.tychoTime.Equals(lastTime));
-                ThrContext.Set<WhmsTime>().AddOrUpdate(new WhmsTime()
-                {
-                    tychoTime = thisTime,
-                    whmsTime1 = thisTime
-                });
-                ThrContext.SaveChanges();
                 if (time == null)
                 {
                     return;
@@ -282,13 +277,12 @@ namespace Service.Dto
             get
             {
                 var carlist =
-                    Dto.ThrContext.GetCarList(
-                        m => m.posNo == axleNo/4 && m.testDateTime.Equals(_profileDetectResult.testDateTime));
+                    Dto.ThrContext.GetCarNo(_profileDetectResult);
                 if (carlist == null)
                 {
                     return "";
                 }
-                return carlist.carNo;
+                return carlist;
             }
         }
 

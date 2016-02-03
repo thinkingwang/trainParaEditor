@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using CommonModel;
-using JCModel;
 
 namespace Service.Dto
 {
-    public class CarListDto:Dto
+    public class CarListDto : Dto
     {
         private static CarList _carList;
         private static BindingSource _source;
         private static DataGridView _dgv;
         private static BindingNavigator _bn;
-        private static  string _picturePath = @"D:\tycho\data";
+        private static readonly string _picturePath = @"D:\tycho\data";
         private static object _tempValue;
         //private readonly Detect _detect;
 
@@ -31,6 +29,7 @@ namespace Service.Dto
                 }
             }
         }
+
         private CarListDto()
         {
         }
@@ -47,13 +46,14 @@ namespace Service.Dto
             _dgv.CellValueChanged += _dgv_CellValueChanged;
         }
 
-        static void _dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private static void _dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var column = _dgv.Columns[e.ColumnIndex];
-            Nlogger.Trace("编辑表CarList的字段：" + column.HeaderText + "，修改前为：" + _tempValue + "，修改为：" + _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+            Nlogger.Trace("编辑表CarList的字段：" + column.HeaderText + "，修改前为：" + _tempValue + "，修改为：" +
+                          _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
         }
 
-        static void _dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private static void _dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (_carList == null)
             {
@@ -88,7 +88,7 @@ namespace Service.Dto
         }
 
         /// <summary>
-        /// 车厢列表增加新行
+        ///     车厢列表增加新行
         /// </summary>
         /// <param name="testDateTime"></param>
         public static void Insert(DateTime testDateTime)
@@ -105,23 +105,18 @@ namespace Service.Dto
             }
         }
 
-        public static void CopyTo(string sourceText, string desText, bool overWriteTanShang = false, bool overWriteCaShang = false, bool overWriteProfile = false)
+        public static void CopyTo(string sourceText, string desText, bool overWriteTanShang = false,
+            bool overWriteCaShang = false, bool overWriteProfile = false)
         {
-
             var source = DateTime.Parse(sourceText);
             var des = DateTime.Parse(desText);
-            var detectSource = ThrContext.Set<Detect>().
-                FirstOrDefault(m => m.testDateTime.Equals(source));
+            var detectSource = ThrContext.Database.SqlQuery<Detect>(string.Format("select * from Detect where testDateTime='{0}'",
+                source.ToString("yyyy-MM-dd HH:mm:ss"))).ToList().FirstOrDefault();
             if (detectSource == null)
             {
                 return;
             }
-            var carSources = ThrContext.GetCarLists(source); ;
-            var cardeses = ThrContext.GetCarLists(des); ;
-            foreach (var carList in cardeses)
-            {
-                ThrContext.RemoveCarList(carList);
-            }
+            CarNoRepair(source,des);
             var detect = ThrContext.Set<Detect>().FirstOrDefault(m => m.testDateTime.Equals(des));
             if (detect == null)
             {
@@ -132,32 +127,45 @@ namespace Service.Dto
                 }
                 detect.testDateTime = des;
                 detect.outDateTime = des;
-                TanRepair(sourceText, desText);
-                CaRepair(sourceText, desText);
-                ProfileDetectResultDto.Repair(desText, sourceText);
             }
             else
             {
                 detect.engNum = detectSource.engNum;
-                if (overWriteTanShang)
-                {
-                    TanRepair(sourceText, desText);
-                }
-                if (overWriteCaShang)
-                {
-                    CaRepair(sourceText, desText);
-                }
-                if (overWriteProfile)
-                {
-                    ProfileDetectResultDto.Repair(desText, sourceText);
-                }
+            }
+            if (overWriteTanShang)
+            {
+                TanRepair(sourceText, desText);
+            }
+            if (overWriteCaShang)
+            {
+                CaRepair(sourceText, desText);
+            }
+            if (overWriteProfile)
+            {
+                ProfileDetectResultDto.Repair(desText, sourceText);
             }
             ThrContext.Set<Detect>().AddOrUpdate(detect);
             ThrContext.SaveChanges();
 
+            var result = MessageBox.Show(@"是否自动分析探伤和外形", @"确认对话框", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            ThrContext.Reanalysis(des);
+        }
+
+        private static void CarNoRepair(DateTime source,DateTime des)
+        {
+            var carSources = ThrContext.GetCarLists(source);
+            var cardeses = ThrContext.GetCarLists(des);
+            foreach (var carList in cardeses)
+            {
+                ThrContext.RemoveCarList(carList);
+            }
             foreach (var carSource in carSources)
             {
-                var car = new CarList()
+                var car = new CarList
                 {
                     testDateTime = des,
                     carNo = carSource.carNo,
@@ -167,14 +175,27 @@ namespace Service.Dto
                 ThrContext.AddCarList(car);
             }
             ThrContext.SaveChanges();
-            var result = MessageBox.Show(@"是否自动分析探伤和外形", @"确认对话框", MessageBoxButtons.YesNo);
-            if (result == DialogResult.No)
+            //复制车厢图片
+            var sourcePath = _picturePath + @"\" + source.ToString(@"yyyy\\MM");
+            if (!Directory.Exists(sourcePath))
             {
+                MessageBox.Show(@"文件路径" + sourcePath + @"不存在");
                 return;
             }
-            ThrContext.Reanalysis(des);
+            var desPath = _picturePath + @"\" + des.ToString(@"yyyy\\MM");
+            var oldValue = source.ToString("yyyyMMdd_HHmmss");
+            var newValue = des.ToString("yyyyMMdd_HHmmss");
+            var files = Directory.GetFiles(sourcePath);
+            Directory.CreateDirectory(desPath);
+            foreach (var file in files)
+            {
+                var fileName = file.Substring(file.LastIndexOf("\\", StringComparison.Ordinal) + 1);
+                if (fileName.Contains(oldValue)&&fileName.Contains("jpg"))
+                {
+                    File.Copy(file, desPath + "\\" + fileName.Replace(oldValue, newValue), true);
+                }
+            }
         }
-
         /// <summary>
         ///     探伤补缺
         /// </summary>
@@ -182,8 +203,8 @@ namespace Service.Dto
         {
             try
             {
-                DateTime source = DateTime.Parse(sourceText);
-                DateTime des = DateTime.Parse(desText);
+                var source = DateTime.Parse(sourceText);
+                var des = DateTime.Parse(desText);
                 if (source.Equals(des))
                 {
                     MessageBox.Show(@"起止时间相等");
@@ -191,25 +212,26 @@ namespace Service.Dto
                 }
                 Nlogger.Trace("对操作对象（时刻作为主键）：" + desText + "，进行了探伤补缺操作，源时刻为：" + sourceText);
                 ThrContext.proc_tanShangDataFill(des, source);
-                    string sourcePath = _picturePath + @"\" + source.ToString(@"yyyy\\MM");
-                    if (!Directory.Exists(sourcePath))
+                ThrContext.Proc1(des);
+                var sourcePath = _picturePath + @"\" + source.ToString(@"yyyy\\MM");
+                if (!Directory.Exists(sourcePath))
+                {
+                    MessageBox.Show(@"文件路径" + sourcePath + @"不存在");
+                    return;
+                }
+                var desPath = _picturePath + @"\" + des.ToString(@"yyyy\\MM");
+                var oldValue = source.ToString("yyyyMMdd_HHmmss");
+                var newValue = des.ToString("yyyyMMdd_HHmmss");
+                var files = Directory.GetFiles(sourcePath);
+                Directory.CreateDirectory(desPath);
+                foreach (var file in files)
+                {
+                    var fileName = file.Substring(file.LastIndexOf("\\", StringComparison.Ordinal) + 1);
+                    if (fileName.Contains(oldValue) && !fileName.Contains("jpg"))
                     {
-                        MessageBox.Show(@"文件路径" + sourcePath + @"不存在");
-                        return;
+                        File.Copy(file, desPath + "\\" + fileName.Replace(oldValue, newValue), true);
                     }
-                    string desPath = _picturePath + @"\" + des.ToString(@"yyyy\\MM");
-                    string oldValue = source.ToString("yyyyMMdd_HHmmss");
-                    string newValue = des.ToString("yyyyMMdd_HHmmss");
-                    string[] files = Directory.GetFiles(sourcePath);
-                    Directory.CreateDirectory(desPath);
-                    foreach (string file in files)
-                    {
-                        var fileName = file.Substring(file.LastIndexOf("\\", StringComparison.Ordinal)+1);
-                        if (fileName.Contains(oldValue))
-                        {
-                            File.Copy(file, desPath + "\\" + fileName.Replace(oldValue,newValue),true);
-                        }
-                    }
+                }
             }
             catch (Exception)
             {
@@ -224,8 +246,8 @@ namespace Service.Dto
         {
             try
             {
-                DateTime source = DateTime.Parse(sourceText);
-                DateTime des = DateTime.Parse(desText);
+                var source = DateTime.Parse(sourceText);
+                var des = DateTime.Parse(desText);
                 if (source.Equals(des))
                 {
                     MessageBox.Show(@"起止时间相等");
@@ -233,34 +255,36 @@ namespace Service.Dto
                 }
                 Nlogger.Trace("对操作对象（时刻作为主键）：" + desText + "，进行了擦伤补缺操作，源时刻为：" + sourceText);
                 ThrContext.proc_caShangDataFill(des, source);
+                ThrContext.Proc2(des);
                 GetValue(source, des, "擦伤数据");
                 GetValue(source, des, "擦伤结果");
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Nlogger.Trace(e.Message);
                 throw;
             }
         }
 
-        private static bool GetValue(DateTime source, DateTime des,string fileName)
+        private static bool GetValue(DateTime source, DateTime des, string fileName)
         {
-            string sourcePath = _picturePath + @"\" + fileName+ "\\datas\\" + source.ToString(@"yyyy\\MM");
+            var sourcePath = _picturePath + @"\" + fileName + "\\datas\\" + source.ToString(@"yyyy\\MM");
             if (!Directory.Exists(sourcePath))
             {
                 MessageBox.Show(@"文件路径" + sourcePath + @"不存在");
                 return true;
             }
-            string desPath = _picturePath + @"\" + fileName + "\\datas\\" + des.ToString(@"yyyy\\MM");
-            string oldValue = source.ToString("yyyyMMdd_HHmmss");
-            string newValue = des.ToString("yyyyMMdd_HHmmss");
-            string[] files = Directory.GetFiles(sourcePath);
+            var desPath = _picturePath + @"\" + fileName + "\\datas\\" + des.ToString(@"yyyy\\MM");
+            var oldValue = source.ToString("yyyyMMdd_HHmmss");
+            var newValue = des.ToString("yyyyMMdd_HHmmss");
+            var files = Directory.GetFiles(sourcePath);
             Directory.CreateDirectory(desPath);
-            foreach (string file in files)
+            foreach (var file in files)
             {
                 var name = file.Substring(file.LastIndexOf("\\", StringComparison.Ordinal) + 1);
                 if (file.Contains(oldValue))
                 {
-                    File.Copy(file, desPath + "\\" + name.Replace(oldValue, newValue),true);
+                    File.Copy(file, desPath + "\\" + name.Replace(oldValue, newValue), true);
                 }
             }
             return false;
@@ -298,6 +322,5 @@ namespace Service.Dto
             ThrContext.SaveChanges();
             Nlogger.Trace("车厢列表删除一行,时刻为：" + time);
         }
-
     }
 }

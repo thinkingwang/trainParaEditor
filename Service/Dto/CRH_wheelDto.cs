@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data.Entity.Migrations;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using CommonModel;
-using CommonModel.Common;
 
 namespace Service.Dto
 {
@@ -21,7 +19,7 @@ namespace Service.Dto
         {
         }
 
-        public static void SetDgv(DataGridView dgv,  BindingNavigator bn)
+        public static void SetDgv(DataGridView dgv, BindingNavigator bn)
         {
             _dgv = dgv;
             _source = new BindingSource();
@@ -43,17 +41,21 @@ namespace Service.Dto
             ThrContext.SaveChanges();
             GetAll();
         }
-        static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+
+        private static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             _tempValue = _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
             _crhWheel = ThrContext.Set<CRH_wheel>().ToList().ElementAt(e.RowIndex);
             ThrContext.Set<CRH_wheel>().Remove(_crhWheel);
             ThrContext.SaveChanges();
         }
-        static void _dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+
+        private static void _dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             var column = _dgv.Columns[e.ColumnIndex];
-            Nlogger.Trace("编辑表CRH_wheel的字段：" + column.HeaderText + "，车型为：" + _dgv.Rows[e.RowIndex].Cells["trainType"].Value + ",修改前为：" + _tempValue + "，修改为：" + _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
+            Nlogger.Trace("编辑表CRH_wheel的字段：" + column.HeaderText + "，车型为：" +
+                          _dgv.Rows[e.RowIndex].Cells["trainType"].Value + ",修改前为：" + _tempValue + "，修改为：" +
+                          _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
         }
 
         public static IEnumerable<CRH_wheel> GetAll()
@@ -102,8 +104,8 @@ namespace Service.Dto
         public static void Delete(string trainType, byte axelNo, byte wheelNo)
         {
             var data = from v in ThrContext.Set<CRH_wheel>()
-                       where v.trainType == trainType&&v.axleNo ==axelNo && v.wheelNo == wheelNo
-                       select v;
+                where v.trainType == trainType && v.axleNo == axelNo && v.wheelNo == wheelNo
+                select v;
             foreach (var crh in data)
             {
                 ThrContext.Set<CRH_wheel>().Remove(crh);
@@ -111,10 +113,13 @@ namespace Service.Dto
             ThrContext.SaveChanges();
         }
 
-
         public static void Add(string trainType)
         {
-            var item = ThrContext.Set<CRH_wheel>().Where(m => m.trainType.Equals(trainType)).OrderByDescending(m => m.axleNo).FirstOrDefault();
+            var item =
+                ThrContext.Set<CRH_wheel>()
+                    .Where(m => m.trainType.Equals(trainType))
+                    .OrderByDescending(m => m.axleNo)
+                    .FirstOrDefault();
             if (item != null)
             {
                 var element = item.Copy() as CRH_wheel;
@@ -128,7 +133,7 @@ namespace Service.Dto
             }
             else
             {
-                ThrContext.Set<CRH_wheel>().Add(new CRH_wheel()
+                ThrContext.Set<CRH_wheel>().Add(new CRH_wheel
                 {
                     trainType = trainType,
                     axleNo = 0,
@@ -137,11 +142,20 @@ namespace Service.Dto
             }
             ThrContext.SaveChanges();
         }
+
         public static void Copy(string trainType, string name)
         {
             var data = from v in ThrContext.Set<CRH_wheel>()
                 where v.trainType == trainType
                 select v;
+            var dataSource = from v in ThrContext.Set<CRH_wheel>()
+                where v.trainType == name
+                select v;
+            foreach (var crh in dataSource)
+            {
+                ThrContext.Set<CRH_wheel>().Remove(crh);
+            }
+            ThrContext.SaveChanges();
             foreach (var crh in data)
             {
                 var holds = crh.Copy() as CRH_wheel;
@@ -155,7 +169,7 @@ namespace Service.Dto
             ThrContext.SaveChanges();
         }
 
-        public static void CreateDataBase(IEnumerable<CRH_wheel> data,ModelContext context)
+        public static void CreateDataBase(IEnumerable<CRH_wheel> data, ModelContext context)
         {
             foreach (var thresholdse in data)
             {
@@ -164,5 +178,4 @@ namespace Service.Dto
             context.SaveChanges();
         }
     }
-
 }

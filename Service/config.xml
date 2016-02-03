@@ -1,4 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <config>
   <add key="CS_SD" value="擦伤深度" />
   <add key="WX_LJ" value="轮径" />
@@ -12,19 +13,36 @@
   <add key="WX_NCJ" value="内侧距" />
   <add key="WX_QR" value="QR值" />
   <add key="WX_TMMH" value="踏面磨耗" />
+  <add key="WX_LYHD_M" value="轮缘厚度最大值" />
   <add key="CSD" value="测试" />
-  <server name="服务器" ip="192.192.1.15" type ="DC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\Tycho\外形数据"/>
-  <server name="南宁1" ip="10.10.10.5" type ="DC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="南宁2" ip="10.10.14.5" type ="DC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="太原北机务段" ip="10.10.18.5" type ="JC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="太原动车所" ip="10.10.13.5" type ="DC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\WPMS\var\Supervisor\Storage\WhprM"/>
-  <server name="西宁机务段" ip="10.10.20.5" type ="JC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="西宁动车所" ip="10.10.15.5" type ="DC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="深圳北动车所" ip="10.10.28.5" type ="DC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="呼和浩特动车所" ip="10.10.19.5" type ="DC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="兰州西动车所" ip="10.10.17.5" type ="DC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\WPMS\var\Supervisor\Storage\WhprM"/>
-  <server name="郑州地铁" ip="10.10.11.5" type ="DT" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="合肥客车" ip="192.168.5.201" type ="KC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="神木" ip="10.10.21.5" type ="JC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
-  <server name="乔司" ip="10.10.38.5" type ="JC" flawOrRawPath ="D:\tycho\data" profilePath ="D:\P807\var\Supervisor\Storage\WhprM"/>
+  <server name="服务器" ip="192.192.1.15" type="DC" flawOrRawPath="D:\tycho\data" profilePath="D:\Tycho\外形数据"
+          remoteLoginName="wangdj" remotePwd="Wdj19871202" />
+  <server name="南宁1" ip="10.10.10.5" type="TC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoNn4.0" />
+  <server name="南宁2" ip="10.10.14.5" type="TC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoNn4.0" />
+  <server name="太原北机务段" ip="10.10.18.5" type="JC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoTyb4.0" />
+  <server name="太原动车所" ip="10.10.13.5" type="TC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\WPMS\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoTy4.0" />
+  <server name="西宁机务段" ip="10.10.20.5" type="JC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoXn4.0" />
+  <server name="西宁动车所" ip="10.10.15.5" type="TC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoXn4.0" />
+  <server name="深圳北动车所" ip="10.10.28.5" type="TC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoNn4.0" />
+  <server name="呼和浩特动车所" ip="10.10.19.5" type="TC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoHd4.0" />
+  <server name="兰州西动车所" ip="10.10.17.5" type="TC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\WPMS\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoLz4.0" />
+  <server name="郑州地铁" ip="10.10.11.5" type="DC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoZz4.0" />
+  <server name="神木" ip="10.10.21.5" type="JC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoSm4.0" />
+  <server name="乔司" ip="10.10.38.5" type="JC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoQs4.0" />
+  <server name="合肥" ip="10.10.12.5" type="DC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoHf4.0" />
+  <server name="青岛" ip="10.10.36.5" type="JC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoQd4.0" />
 </config>

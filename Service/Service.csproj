@@ -46,6 +46,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -54,23 +55,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseWhpr.Context.cs">
-      <DependentUpon>BaseWhpr.Context.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="BaseWhpr.cs">
-      <DependentUpon>BaseWhpr.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="BaseWhpr.Designer.cs">
-      <DependentUpon>BaseWhpr.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Dto\CarListDto.cs" />
     <Compile Include="Dto\CRH_wheelDto.cs" />
+    <Compile Include="Dto\DeepCopyHelper.cs" />
     <Compile Include="Dto\DetectDto.cs" />
     <Compile Include="Dto\Dto.cs" />
     <Compile Include="Dto\CRH_CarDto.cs" />
@@ -85,26 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="BaseWhpr.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BaseWhpr.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
-    <None Include="BaseWhpr.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BaseWhpr.edmx</DependentUpon>
-      <LastGenOutput>BaseWhpr.Context.cs</LastGenOutput>
-    </None>
-    <None Include="BaseWhpr.edmx.diagram">
-      <DependentUpon>BaseWhpr.edmx</DependentUpon>
-    </None>
-    <None Include="BaseWhpr.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BaseWhpr.edmx</DependentUpon>
-      <LastGenOutput>BaseWhpr.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

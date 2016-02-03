@@ -31,10 +31,14 @@ namespace Service.Dto
             Nlogger.Trace("重新分析探伤数据，目标时刻为：" + testDateTime);
         }
 
-        public static int uphistory2(string testTime)
+        public static void uphistory2(string testTime)
         {
-           return BwContext.Database.ExecuteSqlCommand(@"EXEC [dbo].[uphistory2] @time", new SqlParameter("@time", testTime));
-           //return bwContext.uphistory2(testTime);
+            using (var sqlclient = new SqlConnection(Dto.connectStringBase))
+            {
+               sqlclient.Open();
+               SqlCommand cmd = new SqlCommand(String.Format(@"EXEC [dbo].[uphistory2] '{0}'", testTime),sqlclient);
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

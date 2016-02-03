@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace TCModel
 {
     [Serializable]
-    public partial class CRH_Car 
+    public class CRH_Car
     {
         [Key]
         [DisplayName("车型")]
@@ -14,31 +14,28 @@ namespace TCModel
         [Column(Order = 0)]
         [ReadOnly(true)]
         public string trainType { get; set; }
+
         [Key]
         [Column(Order = 1)]
         [DisplayName("车厢序号")]
         [ReadOnly(true)]
         public byte carPos { get; set; }
 
-        [Browsable(false)]
         [DisplayName("车厢编号")]
         [StringLength(10)]
         [ReadOnly(true)]
         public string carNo { get; set; }
 
-        [Browsable(false)]
         [DisplayName("车轴编号")]
         [StringLength(10)]
         [ReadOnly(true)]
         public string axleType { get; set; }
 
-        [Browsable(false)]
         [DisplayName("方向")]
         [ReadOnly(true)]
         public bool dir { get; set; }
 
         [DisplayName("车厢类型")]
         public byte powerType { get; set; }
-
     }
 }

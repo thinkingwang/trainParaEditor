@@ -11,9 +11,7 @@ E:\Project\车型参数修改器\车型参数修改器测试\obj\Debug\车轮擦
 E:\Project\车型参数修改器\车型参数修改器测试\obj\Debug\车型参数修改器测试.dll
 E:\Project\车型参数修改器\车型参数修改器测试\obj\Debug\车型参数修改器测试.pdb
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\EntityFramework.dll
-E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\EntityFramework.SqlServer.dll
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\EntityFramework.xml
-E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\EntityFramework.SqlServer.xml
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\NLog.dll
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\NLog.xml
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\CommonModel.dll
@@ -22,6 +20,9 @@ E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\JCModel.d
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\CommonModel.pdb
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\DCModel.pdb
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\JCModel.pdb
-E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\综合配置器.exe
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Service.dll
 E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\Service.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\config.xml
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\TCModel.dll
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\TCModel.pdb
+E:\Project\车型参数修改器\车型参数修改器测试\bin\Debug\TrainConfigTool.exe

@@ -55,15 +55,20 @@ namespace Service.Dto
         private static void _dgv_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             _tempValue = _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-            _trainType = ThrContext.Set<TrainType>().ToList().ElementAt(e.RowIndex);
+            _trainType = ThrContext.Set<TrainType>().OrderBy(m=>m.trainNoFrom).Skip(e.RowIndex).FirstOrDefault();
             ThrContext.Set<TrainType>().Remove(_trainType);
             ThrContext.SaveChanges();
         }
 
-        public static IEnumerable<TrainType> GetAll()
+        public static IEnumerable<TrainType> GetAll(int? from=null,int? to=null)
         {
-            var data = ThrContext.Database.SqlQuery<TrainType>("select * from TrainType"); ;
+            var data = from d in ThrContext.Set<TrainType>() orderby d.trainNoFrom select d;
             _source.DataSource = data.ToList();
+            if (from != null&&to!=null)
+            {
+                var index = Enumerable.TakeWhile(data, engineLib => engineLib.trainNoFrom != @from || engineLib.trainNoTo != to).Count();
+                _dgv.Rows[index].Selected = true;
+            }
             return data.ToList();
         }
 
@@ -81,12 +86,26 @@ namespace Service.Dto
             ThrContext.Set<TrainType>().Remove(data);
             ThrContext.SaveChanges();
         }
-        public static void NewTrainType()
+        public static void NewTrainType(TrainType type=null)
         {
-            var random = new Random();
-            ThrContext.Set<TrainType>().Add(new TrainType() { trainType = "CRH", format = "CRH", trainNoFrom = random.Next(0, 10000), trainNoTo = random.Next(0, 10000) });
+            if (type == null)
+            {
+                var random = new Random();
+                type = new TrainType() { trainType = "CRH", format = "CRH", trainNoFrom = random.Next(0, 10000), trainNoTo = random.Next(0, 10000) };
+            }
+            ThrContext.Set<TrainType>().Add(type);
             ThrContext.SaveChanges();
+            GetAll(type.trainNoFrom,type.trainNoTo);
         }
+
+        public static IQueryable<string> GetTrainTypes()
+        {
+            //获取所有车型
+            var trainTypes =
+                (from v in ThrContext.Set<TrainType>() select v.trainType).Distinct();
+            return trainTypes;
+        }
+
        
     }
 }

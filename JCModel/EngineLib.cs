@@ -26,11 +26,9 @@ namespace JCModel
         }
 
         [Key]
-        [ReadOnly(true)]
-        [DisplayName(@"序列号")]
+        [DisplayName(@"序列号"),ReadOnly(true)]
         public string id { get; set; }
 
-        [ReadOnly(true)]
         [DisplayName(@"名称")]
         public string name { get; set; }
 
@@ -41,14 +39,12 @@ namespace JCModel
         [Browsable(false)]
         public Nullable<byte> typeId { get; set; }
 
-        [ReadOnly(true)]
         [DisplayName(@"轮径")]
         public Nullable<decimal> wheelSize { get; set; }
 
         [Browsable(false)]
         public Nullable<decimal> wheelSizeB { get; set; }
 
-        [ReadOnly(true)]
         [DisplayName(@"轴数")]
         public Nullable<byte> axleNum { get; set; }
     }

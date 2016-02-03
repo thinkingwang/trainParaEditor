@@ -78,12 +78,22 @@ namespace JCModel
 
         public override void AddCarList(CarList carlist)
         {
-            CarLists.AddOrUpdate(carlist as JCCarList);
+            var car = carlist as JCCarList;
+            if (car == null)
+            {
+                return;
+            }
+            Set<JCCarList>().AddOrUpdate(car);
         }
 
         public override void RemoveCarList(CarList carlist)
         {
-            CarLists.Remove(carlist as JCCarList);
+            var car = carlist as JCCarList;
+            if (car == null)
+            {
+                return;
+            }
+            Set<JCCarList>().Remove(car);
         }
     }
 }

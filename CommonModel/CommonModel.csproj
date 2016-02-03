@@ -32,8 +32,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.2.0\lib\net40\NLog.dll</HintPath>
@@ -67,6 +67,7 @@
     <Compile Include="Sequ.cs" />
     <Compile Include="threshold.cs" />
     <Compile Include="TrainType.cs" />
+    <Compile Include="TrainTypesItem.cs" />
     <Compile Include="WhmsTime.cs" />
     <Compile Include="ZoneConfig.cs" />
   </ItemGroup>
