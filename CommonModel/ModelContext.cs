@@ -19,6 +19,8 @@ namespace CommonModel
         public abstract IEnumerable<CarList> GetCarLists(DateTime time);
         public abstract void DeleteCarList(DateTime time, int index);
         public abstract void InsertCarList(DateTime time);
+        public abstract void CsRecovery(DateTime time);
+        public abstract void TsRecovery(DateTime time);
 
         public virtual string GetCarNo(ProfileDetectResult result)
         {

@@ -110,38 +110,48 @@ namespace Service.Dto
             {
                 return;
             }
+            var itemChange = "";
             foreach (var selectColumn in columns)
             {
                 switch (selectColumn)
                 {
                     case SelectColumn.TmMh:
                         des.TmMh = source.TmMh;
+                        itemChange += "踏面磨耗，";
                         break;
                     case SelectColumn.LyGd:
                         des.LyGd = source.LyGd;
+                        itemChange += "轮缘高度，";
                         break;
                     case SelectColumn.LyHd:
                         des.LyHd = source.LyHd;
+                        itemChange += "轮缘厚度，";
                         break;
                     case SelectColumn.LwHd:
                         des.LwHd = source.LwHd;
+                        itemChange += "轮辋宽度，";
                         break;
                     case SelectColumn.QR:
                         des.QR = source.QR;
+                        itemChange += "QR值，";
                         break;
                     case SelectColumn.Ncj:
                         des.Ncj = source.Ncj;
+                        itemChange += "内侧局，";
                         break;
                     case SelectColumn.Lj:
                         des.Lj = source.Lj;
+                        itemChange += "轮径，";
                         break;
                 }
             }
+            itemChange = itemChange.TrimEnd('，');
             ThrContext.Set<ProfileDetectResult>().AddOrUpdate(des);
             ThrContext.SaveChanges();
             ThrContext.Profile_LjCha(desTime);
             ThrContext.Profile(desTime);
-            Nlogger.Trace("对操作对象（时刻作为主键）：" + time + "轮号为：" + axel + "，进行了特定项外形补缺操作，源时刻为：" + desTime + "轮号为：" + desaxel);
+            Nlogger.Trace("对操作对象（时刻作为主键）：" + time + "，轴号为：" + axel + "，轮号为：" + wheel + "，进行了特定项外形补缺操作，源时刻为：" + desTime +
+                          "轴号为：" + desaxel + "，轮号为：" + deswheel + ",操作项为：" + itemChange);
         }
 
         /// <summary>

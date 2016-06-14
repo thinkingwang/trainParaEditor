@@ -1,0 +1,47 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Test
+{
+    [Serializable]
+    public  class threshold
+    {
+        [Key]
+        [Column(Order = 0)]
+        [StringLength(20)]
+        public string trainType { get; set; }
+
+        [Key]
+        [Column(Order = 1)]
+        [StringLength(10)]
+        public virtual string name { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? standard { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? up_level3 { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? up_level2 { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? up_level1 { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? low_level3 { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? low_level2 { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? low_level1 { get; set; }
+
+        [StringLength(100)]
+        public string desc { get; set; }
+
+        [Column(TypeName = "numeric")]
+        public decimal? precision { get; set; }
+    }
+}

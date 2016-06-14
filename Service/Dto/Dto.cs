@@ -14,7 +14,7 @@ namespace Service.Dto
 {
     public class Dto
     {
-        public static bool ToCustomer = true;
+        public static bool ToCustomer = false;
         public static Logger Nlogger;
         public static ModelContext ThrContext;
         protected static readonly string connectStringBase;

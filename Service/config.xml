@@ -43,6 +43,14 @@
           profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoQs4.0" />
   <server name="合肥" ip="10.10.12.5" type="DC" flawOrRawPath="D:\tycho\data"
           profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoHf4.0" />
-  <server name="青岛" ip="10.10.36.5" type="JC" flawOrRawPath="D:\tycho\data"
+  <server name="青岛机车" ip="10.10.36.5" type="JC" flawOrRawPath="D:\tycho\data"
           profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoQd4.0" />
+  <server name="济南西机车二" ip="10.10.43.5" type="JC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoQd4.0" />
+  <server name="上海机车" ip="10.10.31.5" type="JC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoSh4.0" />
+  <server name="惠州北动车" ip="10.10.23.5" type="JC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoHz4.0" />
+  <server name="济南动车" ip="10.10.22.5" type="JC" flawOrRawPath="D:\tycho\data"
+          profilePath="D:\P807\var\Supervisor\Storage\WhprM" remoteLoginName="administrator" remotePwd="TychoJn4.0" />
 </config>

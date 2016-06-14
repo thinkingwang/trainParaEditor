@@ -163,6 +163,7 @@ namespace Service.Dto
             {
                 ThrContext.RemoveCarList(carList);
             }
+            ThrContext.SaveChanges();
             foreach (var carSource in carSources)
             {
                 var car = new CarList

@@ -63,6 +63,25 @@ namespace DCModel
             CarLists.Add(carNew);
         }
 
+        public override void CsRecovery(DateTime time)
+        {
+            Database.ExecuteSqlCommand(string.Format(
+                "update CSSequ set status1=0 ,status2=0 ,status3=0  where testDateTime='{0}'",
+                time));
+            SaveChanges();
+        }
+
+        public override void TsRecovery(DateTime time)
+        {
+            Database.ExecuteSqlCommand(string.Format(
+                "update Sequ set status1=0 ,status2=0 ,status3=0,status4=0   where testDateTime='{0}'",
+                time));
+            Database.ExecuteSqlCommand(string.Format(
+                "update Detect set isValid=0 where testDateTime='{0}'",
+                time));
+            SaveChanges();
+        }
+
         public override CarList GetCarList(Expression<Func<CarList, bool>> predicate)
         {
             return CarLists.FirstOrDefault(predicate);
