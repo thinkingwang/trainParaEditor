@@ -10,3 +10,15 @@ E:\Project\车型参数修改器\JCModel\bin\Debug\NLog.xml
 E:\Project\车型参数修改器\JCModel\obj\Debug\JCModel.csprojResolveAssemblyReference.cache
 E:\Project\车型参数修改器\JCModel\obj\Debug\JCModel.dll
 E:\Project\车型参数修改器\JCModel\obj\Debug\JCModel.pdb
+E:\项目\车型参数修改器\JCModel\bin\Debug\JCModel.dll.config
+E:\项目\车型参数修改器\JCModel\bin\Debug\JCModel.dll
+E:\项目\车型参数修改器\JCModel\bin\Debug\JCModel.pdb
+E:\项目\车型参数修改器\JCModel\bin\Debug\CommonModel.dll
+E:\项目\车型参数修改器\JCModel\bin\Debug\EntityFramework.dll
+E:\项目\车型参数修改器\JCModel\bin\Debug\NLog.dll
+E:\项目\车型参数修改器\JCModel\bin\Debug\CommonModel.pdb
+E:\项目\车型参数修改器\JCModel\bin\Debug\EntityFramework.xml
+E:\项目\车型参数修改器\JCModel\bin\Debug\NLog.xml
+E:\项目\车型参数修改器\JCModel\obj\Debug\JCModel.csprojResolveAssemblyReference.cache
+E:\项目\车型参数修改器\JCModel\obj\Debug\JCModel.dll
+E:\项目\车型参数修改器\JCModel\obj\Debug\JCModel.pdb

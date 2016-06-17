@@ -48,7 +48,7 @@ namespace Service.Dto
 
         private static void _dgv_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            var column = _dgv.Columns[e.ColumnIndex];
+            DataGridViewColumn column = _dgv.Columns[e.ColumnIndex];
             Nlogger.Trace("编辑表CarList的字段：" + column.HeaderText + "，修改前为：" + _tempValue + "，修改为：" +
                           _dgv.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
         }

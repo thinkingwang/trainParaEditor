@@ -10,3 +10,15 @@ E:\Project\车型参数修改器\DCModel\bin\Debug\NLog.xml
 E:\Project\车型参数修改器\DCModel\obj\Debug\DCModel.csprojResolveAssemblyReference.cache
 E:\Project\车型参数修改器\DCModel\obj\Debug\DCModel.dll
 E:\Project\车型参数修改器\DCModel\obj\Debug\DCModel.pdb
+E:\项目\车型参数修改器\DCModel\bin\Debug\DCModel.dll.config
+E:\项目\车型参数修改器\DCModel\bin\Debug\DCModel.dll
+E:\项目\车型参数修改器\DCModel\bin\Debug\DCModel.pdb
+E:\项目\车型参数修改器\DCModel\bin\Debug\CommonModel.dll
+E:\项目\车型参数修改器\DCModel\bin\Debug\EntityFramework.dll
+E:\项目\车型参数修改器\DCModel\bin\Debug\NLog.dll
+E:\项目\车型参数修改器\DCModel\bin\Debug\CommonModel.pdb
+E:\项目\车型参数修改器\DCModel\bin\Debug\EntityFramework.xml
+E:\项目\车型参数修改器\DCModel\bin\Debug\NLog.xml
+E:\项目\车型参数修改器\DCModel\obj\Debug\DCModel.csprojResolveAssemblyReference.cache
+E:\项目\车型参数修改器\DCModel\obj\Debug\DCModel.dll
+E:\项目\车型参数修改器\DCModel\obj\Debug\DCModel.pdb
