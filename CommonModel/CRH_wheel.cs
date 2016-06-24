@@ -21,9 +21,14 @@ namespace CommonModel
         public byte axleNo { get; set; }
 
         [Key]
+        [Browsable(false)]
         [Column(Order = 2)]
-        [ReadOnly(true), DisplayName(@"ÂÖÎ»ÖÃ")]
         public byte wheelNo { get; set; }
+        
+        [NotMapped]
+        [ReadOnly(true), DisplayName(@"ÂÖÎ»ÖÃ")]
+        public string wheelNoStr {
+            get { return wheelNo == 0 ? "×ó" : "ÓÒ"; } }
 
         [DisplayName(@"ÖáÎ»")]
         public byte axlePos { get; set; }

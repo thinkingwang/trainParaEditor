@@ -74,9 +74,9 @@ namespace Service.Dto
         public static void GetCrhWheel(string trainType)
         {
             var data = from v in ThrContext.Set<CRH_wheel>()
-                where v.trainType == trainType
+                where v.trainType == trainType orderby v.axleNo ascending ,v.wheelNo descending 
                 select v;
-            _source.DataSource = data.ToList().OrderBy(m => m.axleNo).ThenBy(m => m.wheelPos);
+            _source.DataSource = data.ToList();
             if (_dgv.Columns.Count == 0)
             {
                 return;
@@ -145,6 +145,10 @@ namespace Service.Dto
 
         public static void Copy(string trainType, string name)
         {
+            if (string.IsNullOrEmpty(trainType) || string.IsNullOrEmpty(name))
+            {
+                return;
+            }
             var data = from v in ThrContext.Set<CRH_wheel>()
                 where v.trainType == trainType
                 select v;

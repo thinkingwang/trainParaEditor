@@ -24,6 +24,24 @@ namespace Service.Dto
             }
             return result;
         }
+        /// <summary>
+        /// 检查外形微调表所有数据
+        /// </summary>
+        /// <returns></returns>
+        public static void Check()
+        {
+            var data = from v in ThrContext.Set<ProfileAdjust>()
+                       select v;
+            if (!data.Any(m => m.position == 0) )
+            {
+                ThrContext.Set<ProfileAdjust>().Add(new ProfileAdjust() { position = 0 });
+            }
+            if (!data.Any(m => m.position == 1) )
+            {
+                ThrContext.Set<ProfileAdjust>().Add(new ProfileAdjust() {position = 1});
+            }
+            ThrContext.SaveChanges();
+        }
 
         private ProfileAdjustDto(ProfileAdjust tt)
         {

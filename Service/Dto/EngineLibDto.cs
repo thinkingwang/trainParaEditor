@@ -127,6 +127,15 @@ namespace Service.Dto
             GetAll(lib.id);
         }
 
+        public static bool GetExistState(string trainType)
+        {
+            var result = ThrContext.Set<EngineLib>().FirstOrDefault(m => m.name.Equals(trainType));
+            if (result == null)
+            {
+                return false;
+            }
+            return true;
+        }
         public static IQueryable<string> GetTrainTypes()
         {
             //获取所有车型
